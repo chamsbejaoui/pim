@@ -1,0 +1,18 @@
+node_modules
+dist
+coverage
+.env
+npm-debug.log*
+.DS_Store
+.idea/
+
+# Runtime / generated
+analysis_jobs/
+uploads/
+
+# Python / AI
+football_video_analysis/.venv/
+.venv/
+__pycache__/
+*.pyc
+*.pt

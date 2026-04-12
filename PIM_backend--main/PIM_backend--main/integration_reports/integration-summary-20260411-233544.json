@@ -1,0 +1,686 @@
+{
+    "generatedAt":  "2026-04-11T23:35:44",
+    "mainRoot":  "C:\\pim-integ-back-problem\\PIM_backend--main\\PIM_backend--main",
+    "addedCount":  111,
+    "conflictCount":  57,
+    "missingSourceCount":  0,
+    "added":  [
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\analyzer.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\cli.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\color.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\events.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\models.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\output.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\possession.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\README.md"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\requirements.txt"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\tracking.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\__init__.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\football_video_analysis\\__main__.py"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\analysis\\analysis.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\analysis\\analysis.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\analysis\\analysis.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\analysis\\dto\\analysis.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\analysis\\interfaces\\analysis-job.interface.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\auth\\dto\\reset-password-token.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\auth\\dto\\verify-email-token.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\chat.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\chat.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\chat.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\dto\\chat.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\schemas\\conversation.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\schemas\\message.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\utils\\delete-scope.util.spec.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\chat\\utils\\delete-scope.util.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\constants\\index.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\conversation-type.enum.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\message-content-type.enum.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\notification-status.enum.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\notification-type.enum.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\common\\utils\\code-generator.util.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\ingestion\\ingestion.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\ingestion\\ingestion.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\ingestion\\ingestion.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\matches\\matches.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\matches\\schemas\\match-player.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\matches\\schemas\\match.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\medical.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\medical.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\medical.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\DTO\\medical-input.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\schemas\\fitness.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\medical\\schemas\\medical-record.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\notifications.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\notifications.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\notifications.scheduler.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\notifications.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\dto\\notifications.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\schemas\\notification.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\schemas\\scheduled-notification.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\utils\\retention.util.spec.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\notifications\\utils\\retention.util.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\players.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\players.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\players.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\dto\\create-player.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\dto\\update-player.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\players\\schemas\\player.schema.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\providers\\provider-adapter.interface.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\providers\\provider-registry.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\providers\\providers.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\providers\\adapters\\api-football.adapter.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\realtime\\realtime.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\realtime\\realtime.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\reports\\reports.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\reports\\reports.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\reports\\reports.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\scripts\\seed-players.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\simulation\\simulation.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\simulation\\simulation.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\simulation\\simulation.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\cognitive-lab.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\cognitive-lab.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\dto\\create-cognitive-session.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\entities\\cognitive-session.entity.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\services\\cognitive-ai.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\cognitive-lab\\services\\cognitive-lab.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\exercises-ai.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\exercises.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\exercises.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\exercises.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\dto\\create-exercise.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\dto\\update-exercise.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\exercises\\entities\\exercise.entity.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\nutrition-lab.module.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\controllers\\nutrition-lab.controller.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\dto\\create-physical-profile.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\dto\\log-nutrition.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\dto\\weekly-meal-plan.dto.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\entities\\nutrition-log.entity.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\entities\\physical-profile.entity.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\services\\metabolic-ai.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\nutrition-lab\\services\\nutrition-lab.service.ts"
+                  },
+                  {
+                      "source":  "99ae",
+                      "relativePath":  "src\\simulation\\schemas\\simulation-match.schema.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\cognitive-lab.controller.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\cognitive-lab.module.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\dto\\create-cognitive-session.dto.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\entities\\cognitive-session.entity.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\services\\cognitive-ai.service.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\cognitive-lab\\services\\cognitive-lab.service.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\nutrition-lab.module.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\controllers\\nutrition-lab.controller.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\dto\\create-physical-profile.dto.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\dto\\log-nutrition.dto.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\dto\\weekly-meal-plan.dto.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\entities\\nutrition-log.entity.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\entities\\physical-profile.entity.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\services\\metabolic-ai.service.ts"
+                  },
+                  {
+                      "source":  "mahdiii",
+                      "relativePath":  "src\\sports-performance\\nutrition-lab\\services\\nutrition-lab.service.ts"
+                  }
+              ],
+    "conflicts":  [
+                      {
+                          "source":  "99ae",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\dataset.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\metrics.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\app.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\main.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\constants\\role-permissions.constant.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\permission.enum.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\role.enum.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\sports-performance.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\users\\users.controller.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\users\\users.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\medical\\medical.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\players\\players.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\simulation\\simulation.controller.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\simulation\\simulation.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\simulation\\simulation.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\dataset.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\kmeans.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\main.py"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\metrics.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\model.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\scaler.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\medical\\medical.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\players\\players.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\simulation\\simulation.controller.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\simulation\\simulation.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\simulation\\simulation.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "package-lock.json"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\players\\dto\\create-player.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\sports-performance.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises-ai.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.controller.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\dto\\create-exercise.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\dto\\update-exercise.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\entities\\exercise.entity.ts"
+                      }
+                  ],
+    "missingSources":  [
+
+                       ]
+}
