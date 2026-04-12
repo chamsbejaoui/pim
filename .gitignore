@@ -31,3 +31,6 @@ pnpm-debug.log*
 *.log
 *.tmp
 *.downloading
+
+# Temporary nested git backup directory
+**/.git_backup_for_parent_push/
