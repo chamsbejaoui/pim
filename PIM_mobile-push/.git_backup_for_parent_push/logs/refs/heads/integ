@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 0e7ec14719aabe811750d76efbac784dfe48048f chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775817143 +0100	branch: Created from 0e7ec14719aabe811750d76efbac784dfe48048f
+0e7ec14719aabe811750d76efbac784dfe48048f 36fd118f866155a87d62d5866b00c1335ff5c39b chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775817191 +0100	merge f99afc8c9d67304eb3e766fbc15f34f89df43c1c: Merge made by the 'ort' strategy.
+36fd118f866155a87d62d5866b00c1335ff5c39b 7f4c44e5ce6757dcd7101bdd066ba0c86d75b420 chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775817990 +0100	commit: Clean integ merge with cognitive lab
+7f4c44e5ce6757dcd7101bdd066ba0c86d75b420 c729ef7d1d4c556252a2ef99db3a1c7ef55bd7b5 chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775821599 +0100	merge 3c26619232f411b9093d6dd7540b217726dd3f7d: Merge made by the 'ort' strategy.
+c729ef7d1d4c556252a2ef99db3a1c7ef55bd7b5 d202aaff6c57dc7a5bc7458ae5785c39d55c4b3d chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775821784 +0100	commit: Clean amine-front-v2 integration into ODINCLUB
+d202aaff6c57dc7a5bc7458ae5785c39d55c4b3d d7bb3bae1db907b89548a7ee7614123fb450720a chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775824898 +0100	commit: Integrate mahdi finance AI into frontend
+d7bb3bae1db907b89548a7ee7614123fb450720a 44cb2ec8bf4decd72a09a1ef3a721167768250be chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775923150 +0100	commit: Restyle technical staff experience
+44cb2ec8bf4decd72a09a1ef3a721167768250be d7bb3bae1db907b89548a7ee7614123fb450720a chamsbejaoui <mohamedchamseddine.bejaoui@esprit.tn> 1775942092 +0100	reset: moving to d7bb3ba
