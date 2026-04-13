@@ -1,0 +1,36 @@
+# Node.js dependencies and logs
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Flutter / Dart generated artifacts
+**/build/
+**/.dart_tool/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+
+# Python caches and virtual environments
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+
+# Environment files
+**/.env
+**/.env.*
+
+# OS/editor noise
+**/.DS_Store
+**/Thumbs.db
+
+# Temp and partial downloads
+*.log
+*.tmp
+*.downloading
+
+# Temporary nested git backup directory
+**/.git_backup_for_parent_push/

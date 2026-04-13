@@ -1,0 +1,243 @@
+{
+    "generatedAt":  "2026-04-11T23:37:59",
+    "mainRoot":  "C:\\pim-integ-back-problem\\PIM_backend--main\\PIM_backend--main",
+    "addedCount":  0,
+    "conflictCount":  57,
+    "missingSourceCount":  0,
+    "added":  [
+
+              ],
+    "conflicts":  [
+                      {
+                          "source":  "99ae",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\dataset.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\metrics.json"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\app.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\main.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\constants\\role-permissions.constant.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\permission.enum.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\common\\enums\\role.enum.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\sports-performance\\sports-performance.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\users\\users.controller.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "ODIN_Club_backend\\src\\users\\users.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\medical\\medical.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\players\\players.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\simulation\\simulation.service.ts"
+                      },
+                      {
+                          "source":  "99ae",
+                          "relativePath":  "src\\sports-performance\\sports-performance.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\dataset.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\kmeans.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\main.py"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\metrics.json"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\model.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "ODIN_Club_backend\\ModeleAIpython\\scaler.pkl"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\medical\\medical.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\players\\players.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\simulation\\simulation.service.ts"
+                      },
+                      {
+                          "source":  "amine-v2",
+                          "relativePath":  "src\\sports-performance\\sports-performance.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  ".env.example"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "package-lock.json"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "package.json"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\app.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\main.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\ai\\ai.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\ai\\ai.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\players\\players.controller.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\players\\dto\\create-player.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\simulation\\simulation.controller.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\simulation\\simulation.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\simulation\\simulation.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises-ai.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.controller.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.module.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\exercises.service.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\dto\\create-exercise.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\dto\\update-exercise.dto.ts"
+                      },
+                      {
+                          "source":  "mahdiii",
+                          "relativePath":  "src\\sports-performance\\exercises\\entities\\exercise.entity.ts"
+                      }
+                  ],
+    "missingSources":  [
+
+                       ]
+}
