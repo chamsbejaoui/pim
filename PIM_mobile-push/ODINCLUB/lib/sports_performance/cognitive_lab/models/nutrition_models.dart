@@ -129,19 +129,19 @@ class MetabolicStatus {
       error: json['error'],
       profileData: json['profileData'] != null ? PhysicalProfile.fromJson(json['profileData'] as Map<String, dynamic>) : null,
       targets: Map<String, double>.from(
-          (json['targets'] as Map<String, dynamic>? ?? {}).map(
-                (k, v) => MapEntry(k, (v as num).toDouble()),
-          )
+        (json['targets'] as Map<String, dynamic>? ?? {}).map(
+          (k, v) => MapEntry(k, (v as num).toDouble()),
+        )
       ),
       current: Map<String, double>.from(
-          (json['current'] as Map<String, dynamic>? ?? {}).map(
-                (k, v) => MapEntry(k, (v as num).toDouble()),
-          )
+        (json['current'] as Map<String, dynamic>? ?? {}).map(
+          (k, v) => MapEntry(k, (v as num).toDouble()),
+        )
       ),
       deficits: Map<String, double>.from(
-          (json['deficits'] as Map<String, dynamic>? ?? {}).map(
-                (k, v) => MapEntry(k, (v as num).toDouble()),
-          )
+        (json['deficits'] as Map<String, dynamic>? ?? {}).map(
+          (k, v) => MapEntry(k, (v as num).toDouble()),
+        )
       ),
     );
   }

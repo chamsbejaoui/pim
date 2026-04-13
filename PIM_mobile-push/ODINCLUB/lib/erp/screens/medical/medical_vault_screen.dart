@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import '../../../ui/theme/medical_theme.dart';
+import '../../core/theme.dart';
 import '../../providers/players_provider.dart';
 import '../../widgets/status_badge.dart';
 import '../players/player_detail_screen.dart';
@@ -30,9 +30,8 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
         p.status == 'injured' || (p.medicalNotes != null && p.medicalNotes!.isNotEmpty)
     ).toList();
 
-    return MedicalThemeScope(
-      child: Scaffold(
-        backgroundColor: MedicalTheme.background,
+    return Scaffold(
+      backgroundColor: OdinTheme.background,
       body: Column(
         children: [
           // ─── Vault Overview ─────────────────────────────
@@ -41,9 +40,9 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
             child: Container(
                padding: const EdgeInsets.all(16),
                decoration: BoxDecoration(
-                 color: MedicalTheme.surfaceAlt.withValues(alpha: 0.6),
+                 color: OdinTheme.surfaceLight.withValues(alpha: 0.5),
                  borderRadius: BorderRadius.circular(16),
-                 border: Border.all(color: MedicalTheme.cardBorder),
+                 border: Border.all(color: OdinTheme.cardBorder),
                ),
                child: Row(
                  children: [
@@ -51,14 +50,14 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
                      child: _buildMetric(
                        label: 'Dossiers Actifs',
                        value: '${medicalCases.length}',
-                       color: MedicalTheme.primaryBlue,
+                       color: OdinTheme.primaryBlue,
                      ),
                    ),
                    Expanded(
                      child: _buildMetric(
                        label: 'Blessés',
                        value: '${medicalCases.where((p) => p.status == 'injured').length}',
-                       color: MedicalTheme.danger,
+                       color: OdinTheme.accentRed,
                      ),
                    ),
                  ],
@@ -70,18 +69,18 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
           Expanded(
             child: provider.isLoading
                 ? const Center(
-                    child: CircularProgressIndicator(color: MedicalTheme.primaryBlue))
+                    child: CircularProgressIndicator(color: OdinTheme.primaryBlue))
                 : medicalCases.isEmpty
                     ? Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.health_and_safety_outlined,
-                                size: 64, color: MedicalTheme.textMuted),
+                                size: 64, color: OdinTheme.textTertiary),
                             const SizedBox(height: 16),
                             const Text(
                               'Aucun dossier médical nécessitant attention',
-                              style: TextStyle(color: MedicalTheme.textMuted),
+                              style: TextStyle(color: OdinTheme.textTertiary),
                             ),
                           ],
                         ),
@@ -111,18 +110,16 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: MedicalTheme.surface,
+          color: OdinTheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isInjured
-                ? MedicalTheme.danger.withValues(alpha: 0.5)
-                : MedicalTheme.cardBorder,
+            color: isInjured ? OdinTheme.accentRed.withValues(alpha: 0.5) : OdinTheme.cardBorder,
             width: isInjured ? 1.5 : 1.0,
           ),
           boxShadow: [
             if (isInjured)
               BoxShadow(
-                color: MedicalTheme.danger.withValues(alpha: 0.1),
+                color: OdinTheme.accentRed.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               )
@@ -135,15 +132,10 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
               children: [
                 CircleAvatar(
                   radius: 20,
-                  backgroundColor: (isInjured
-                          ? MedicalTheme.danger
-                          : MedicalTheme.primaryBlue)
-                      .withValues(alpha: 0.2),
+                  backgroundColor: (isInjured ? OdinTheme.accentRed : OdinTheme.primaryBlue).withValues(alpha: 0.2),
                   child: Icon(
                     isInjured ? Icons.local_hospital_rounded : Icons.medical_information_rounded,
-                    color: isInjured
-                        ? MedicalTheme.danger
-                        : MedicalTheme.primaryBlue,
+                    color: isInjured ? OdinTheme.accentRed : OdinTheme.primaryBlue,
                     size: 20,
                   ),
                 ),
@@ -155,7 +147,7 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
                       Text(
                         player.fullName,
                         style: const TextStyle(
-                          color: MedicalTheme.textPrimary,
+                          color: OdinTheme.textPrimary,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -168,8 +160,8 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
                             const SizedBox(width: 8),
                             Text(
                               'Retour: ${df.format(player.returnDate!)}',
-                              style: TextStyle(
-                                color: MedicalTheme.warning,
+                              style: const TextStyle(
+                                color: OdinTheme.accentOrange,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -180,28 +172,24 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right_rounded, color: MedicalTheme.textMuted),
+                Icon(Icons.chevron_right_rounded, color: OdinTheme.textTertiary),
               ],
             ),
             if (player.medicalNotes != null && player.medicalNotes!.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Divider(color: MedicalTheme.cardBorder),
+                child: Divider(color: OdinTheme.cardBorder),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.note_alt_rounded,
-                    size: 16,
-                    color: MedicalTheme.textMuted,
-                  ),
+                  Icon(Icons.note_alt_rounded, size: 16, color: OdinTheme.textTertiary),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       player.medicalNotes!,
                       style: const TextStyle(
-                        color: MedicalTheme.textSecondary,
+                        color: OdinTheme.textSecondary,
                         fontSize: 13,
                         fontStyle: FontStyle.italic,
                       ),
@@ -228,8 +216,8 @@ class _MedicalVaultScreenState extends State<MedicalVaultScreen> {
       children: [
         Text(
           label,
-          style: TextStyle(
-            color: MedicalTheme.textMuted,
+          style: const TextStyle(
+            color: OdinTheme.textTertiary,
             fontSize: 11,
             fontWeight: FontWeight.w500,
           ),

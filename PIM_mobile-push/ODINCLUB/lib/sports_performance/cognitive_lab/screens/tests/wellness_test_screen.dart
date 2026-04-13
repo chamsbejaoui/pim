@@ -58,7 +58,7 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
             ),
           ),
         ),
-
+        
         Column(
           children: [
             // Integrated Progress Indicator
@@ -74,7 +74,7 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
                 ),
               ),
             ),
-
+            
             Expanded(
               child: PageView(
                 controller: _controller,
@@ -215,9 +215,9 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
                   question,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
+                    color: Colors.white, 
+                    fontSize: 22, 
+                    fontWeight: FontWeight.w900, 
                     height: 1.3,
                   ),
                 ),
@@ -225,7 +225,7 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
             ),
           ),
           const SizedBox(height: 40),
-
+          
           // Selection List
           Expanded(
             child: SingleChildScrollView(
@@ -241,8 +241,8 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                         decoration: BoxDecoration(
-                          color: isSelected
-                              ? Colors.cyanAccent.withOpacity(0.1)
+                          color: isSelected 
+                              ? Colors.cyanAccent.withOpacity(0.1) 
                               : Colors.white.withOpacity(0.02),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
@@ -261,7 +261,7 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
                               ),
                             ),
                             const Spacer(),
-                            if (isSelected)
+                            if (isSelected) 
                               const Icon(Icons.check_circle, color: Colors.cyanAccent, size: 20),
                           ],
                         ),
@@ -314,9 +314,9 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
                   question,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
+                    color: Colors.white, 
+                    fontSize: 22, 
+                    fontWeight: FontWeight.w900, 
                     height: 1.3,
                   ),
                 ),
@@ -324,7 +324,7 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
             ),
           ),
           const SizedBox(height: 60),
-
+          
           Stack(
             alignment: Alignment.center,
             children: [
@@ -350,9 +350,9 @@ class _WellnessTestScreenState extends State<WellnessTestScreen> {
               ),
             ],
           ),
-
+          
           const SizedBox(height: 40),
-
+          
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: Colors.cyanAccent,

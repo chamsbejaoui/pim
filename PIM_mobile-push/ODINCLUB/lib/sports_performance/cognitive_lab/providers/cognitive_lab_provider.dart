@@ -33,7 +33,7 @@ class CognitiveLabProvider with ChangeNotifier {
 
     try {
       final data = await _service.getDashboard(playerId);
-
+      
       if (data['latestSession'] != null) {
         final sessionMap = Map<String, dynamic>.from(data['latestSession']);
         sessionMap['playerInfo'] = data['playerInfo']; // Inject identities
@@ -47,7 +47,7 @@ class CognitiveLabProvider with ChangeNotifier {
       } else {
         _latestSession = null;
       }
-
+      
       _baseline = data['baseline'];
       if (data['history'] != null) {
         _history = List<Map<String, dynamic>>.from(data['history']);
@@ -83,13 +83,13 @@ class CognitiveLabProvider with ChangeNotifier {
 
     try {
       final session = await _service.createSession(sessionData);
-
+      
       // Update local state immediately with the result
       _latestSession = session;
-
+      
       // Also trigger a full refresh to get baseline and history updated
       await fetchDashboard(sessionData['playerId']);
-
+      
       return session;
     } catch (e) {
       print('Error submitting session: $e');

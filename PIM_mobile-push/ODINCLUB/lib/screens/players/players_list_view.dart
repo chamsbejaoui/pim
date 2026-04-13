@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../theme/app_theme.dart';
 import 'player_details_screen.dart';
-import '../../sports_performance/cognitive_lab/screens/cognitive_dashboard_screen.dart';
-import '../../ui/shell/app_shell.dart';
 
 class PlayersListView extends StatefulWidget {
   const PlayersListView({super.key});
@@ -321,101 +319,61 @@ class _PlayersListViewState extends State<PlayersListView> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(16),
-                            onTap: () {
-                              final shell = AppShellScope.of(context);
-                              if (shell != null) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => CognitiveDashboardScreen(
-                                      session: shell.session,
-                                      targetPlayerId: player['_id'],
-                                      targetPlayerName: '${player['firstName']} ${player['lastName']}',
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${player['firstName']} ${player['lastName']}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppTheme.odinDarkBlue,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
+                                    if (isInjured)
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.red.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
                                         child: Text(
-                                          '${player['firstName']} ${player['lastName']}',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppTheme.odinDarkBlue,
-                                          ),
+                                          'Injured',
+                                          style: TextStyle(color: Colors.red),
                                         ),
                                       ),
-                                      if (isInjured)
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 4,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Colors.red.withOpacity(0.1),
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Text(
-                                            'Injured',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Text('Age: ${player['age']}'),
+                                Text('Position: ${player['position']}'),
+                                Text(
+                                  'Contract end: ${_formatDate(DateTime.parse(player['contractEndDate']))}',
+                                ),
+                                const SizedBox(height: 8),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => PlayerDetailsScreen(playerId: player['_id']),
                                         ),
-                                    ],
+                                      );
+                                    },
+                                    child: Text('See more'),
                                   ),
-                                  const SizedBox(height: 8),
-                                  Text('Age: ${player['age']}'),
-                                  Text('Position: ${player['position']}'),
-                                  Text(
-                                    'Contract end: ${_formatDate(DateTime.parse(player['contractEndDate']))}',
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextButton.icon(
-                                        onPressed: () {
-                                          final shell = AppShellScope.of(context);
-                                          if (shell != null) {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (_) => CognitiveDashboardScreen(
-                                                  session: shell.session,
-                                                  targetPlayerId: player['_id'],
-                                                  targetPlayerName: '${player['firstName']} ${player['lastName']}',
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                        icon: Icon(Icons.psychology, size: 18),
-                                        label: Text('Lab Cognitif'),
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Colors.cyan,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (_) => PlayerDetailsScreen(playerId: player['_id']),
-                                            ),
-                                          );
-                                        },
-                                        child: Text('See details'),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         );

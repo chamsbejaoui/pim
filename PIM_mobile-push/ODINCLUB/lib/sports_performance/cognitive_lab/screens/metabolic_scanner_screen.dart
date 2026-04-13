@@ -83,19 +83,19 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
       _isLoading = false;
     });
   }
-  //C'est le verrou de sécurité qui compare votre consommation actuelle aux objectifs IA avant d'autoriser un repa
+ //C'est le verrou de sécurité qui compare votre consommation actuelle aux objectifs IA avant d'autoriser un repa
   bool _canLog(Map<String, dynamic> template) {
     if (_status == null) return false;
     final type = template['type'] as MealType;
-
+    
     if (type == MealType.hydration) {
       return (_status!.current['hydrationMl'] ?? 0) < (_status!.targets['hydrationMl'] ?? 1);
     }
-
+    
     // Pour les autres repas, si le besoin en Glucides ET Protéines est comblé, on bloque
     final bool carbsMet = (_status!.current['carbs'] ?? 0) >= (_status!.targets['carbs'] ?? 1);
     final bool protMet = (_status!.current['proteins'] ?? 0) >= (_status!.targets['proteins'] ?? 1);
-
+    
     return !carbsMet || !protMet;
   }
 
@@ -166,8 +166,8 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
       body: _isLoading
           ? _buildLoadingState()
           : _status == null
-          ? _buildNoProfileState()
-          : _buildContent(),
+              ? _buildNoProfileState()
+              : _buildContent(),
     );
   }
 
@@ -253,9 +253,9 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
   }
 
   Widget _buildContent() {
-    final bool isEmpty = (_status!.current['carbs'] ?? 0) == 0 &&
-        (_status!.current['proteins'] ?? 0) == 0 &&
-        (_status!.current['hydrationMl'] ?? 0) == 0;
+    final bool isEmpty = (_status!.current['carbs'] ?? 0) == 0 && 
+                        (_status!.current['proteins'] ?? 0) == 0 && 
+                        (_status!.current['hydrationMl'] ?? 0) == 0;
 
     return Container(
       decoration: const BoxDecoration(
@@ -472,7 +472,7 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
     final bool isCompleted = ratio >= 1.0;
     final bool isExcess = ratio > 1.05; // Marge de 5% avant l'alerte
     final int percentage = (ratio * 100).round();
-
+    
     final Color barColor = isExcess ? const Color(0xFFEF4444) : color;
 
     return ClipRRect(
@@ -519,7 +519,7 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
                 alignment: Alignment.bottomLeft,
                 widthFactor: pct,
                 child: Container(
-                  height: 3,
+                  height: 3, 
                   decoration: BoxDecoration(
                     color: barColor,
                     boxShadow: [
@@ -601,7 +601,7 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
             final tmpl = _mealTemplates[index];
             final color = tmpl['color'] as Color;
             final bool canLog = _canLog(tmpl);
-
+            
             return Opacity(
               opacity: canLog ? 1.0 : 0.4,
               child: InkWell(
@@ -627,20 +627,20 @@ class _MetabolicScannerScreenState extends State<MetabolicScannerScreen>
                       const SizedBox(height: 4),
                       if (canLog)
                         Text(
-                          tmpl['type'] == MealType.hydration
-                              ? (tmpl['hydration'] >= 1000
-                              ? '${(tmpl['hydration'] / 1000).toStringAsFixed(1).replaceAll('.0', '')}L'
-                              : '${tmpl['hydration'].toStringAsFixed(0)}ml')
-                              : '${tmpl['carbs'].toStringAsFixed(0)}g Carbs',
+                          tmpl['type'] == MealType.hydration 
+                            ? (tmpl['hydration'] >= 1000 
+                                ? '${(tmpl['hydration'] / 1000).toStringAsFixed(1).replaceAll('.0', '')}L' 
+                                : '${tmpl['hydration'].toStringAsFixed(0)}ml')
+                            : '${tmpl['carbs'].toStringAsFixed(0)}g Carbs',
                           style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold, decoration: TextDecoration.none),
                         )
                       else
                         const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.check_circle_outline, color: Color(0xFF10B981), size: 10),
-                            SizedBox(width: 4),
-                            Text('COMPLET', style: TextStyle(color: Color(0xFF10B981), fontSize: 8, fontWeight: FontWeight.bold, decoration: TextDecoration.none)),
+                             Icon(Icons.check_circle_outline, color: Color(0xFF10B981), size: 10),
+                             SizedBox(width: 4),
+                             Text('COMPLET', style: TextStyle(color: Color(0xFF10B981), fontSize: 8, fontWeight: FontWeight.bold, decoration: TextDecoration.none)),
                           ],
                         ),
                     ],

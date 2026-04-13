@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class BulletListCard extends StatelessWidget {
   const BulletListCard({
@@ -24,9 +24,9 @@ class BulletListCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: MedicalTheme.card,
+        color: AppTheme.card,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: MedicalTheme.cardBorder),
+        border: Border.all(color: AppTheme.cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +34,7 @@ class BulletListCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: MedicalTheme.accentBlue, size: 18),
+              Icon(icon, color: AppTheme.accentBlue, size: 18),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -57,17 +57,14 @@ class BulletListCard extends StatelessWidget {
                 children: [
                   Text(
                     '-',
-                    style: TextStyle(
-                      color: MedicalTheme.accentBlue,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(color: AppTheme.accentBlue, fontSize: 16),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       item,
                       style: textTheme.bodySmall?.copyWith(
-                        color: MedicalTheme.textSecondary,
+                        color: AppTheme.textSecondary,
                       ),
                     ),
                   ),

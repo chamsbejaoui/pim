@@ -17,10 +17,10 @@ class TacticalMemoryMetrics {
 }
 
 class CognitiveScores {
-  final int reactionScore;
-  final int focusScore;
-  final int memoryScore;
-  final int mentalScore;
+  final int? reactionScore;
+  final int? focusScore;
+  final int? memoryScore;
+  final int? mentalScore;
   final int? decisionScore;
   final int? wellnessScore;
   final int? tacticalIqScore;
@@ -28,10 +28,10 @@ class CognitiveScores {
   final String? trainingReadiness;
 
   CognitiveScores({
-    required this.reactionScore,
-    required this.focusScore,
-    required this.memoryScore,
-    required this.mentalScore,
+    this.reactionScore,
+    this.focusScore,
+    this.memoryScore,
+    this.mentalScore,
     this.decisionScore,
     this.wellnessScore,
     this.tacticalIqScore,
@@ -41,13 +41,13 @@ class CognitiveScores {
 
   factory CognitiveScores.fromJson(Map<String, dynamic> json) {
     return CognitiveScores(
-      reactionScore: json['reactionScore'] ?? 0,
-      focusScore: json['focusScore'] ?? 0,
-      memoryScore: json['memoryScore'] ?? 0,
-      mentalScore: json['mentalScore'] ?? 0,
-      decisionScore: json['decisionScore'],
-      wellnessScore: json['wellnessScore'],
-      tacticalIqScore: json['tacticalIqScore'],
+      reactionScore: (json['reactionScore'] as num?)?.toInt(),
+      focusScore: (json['focusScore'] as num?)?.toInt(),
+      memoryScore: (json['memoryScore'] as num?)?.toInt(),
+      mentalScore: (json['mentalScore'] as num?)?.toInt(),
+      decisionScore: (json['decisionScore'] as num?)?.toInt(),
+      wellnessScore: (json['wellnessScore'] as num?)?.toInt(),
+      tacticalIqScore: (json['tacticalIqScore'] as num?)?.toInt(),
       tacticalProfile: json['tacticalProfile'],
       trainingReadiness: json['trainingReadiness'],
     );
@@ -112,7 +112,7 @@ class CognitiveSession {
   final String id;
   final String playerId;
   final DateTime date;
-
+  
   final CognitiveScores? scores;
   final String? aiStatus;
   final String? riskLevel;
@@ -137,8 +137,8 @@ class CognitiveSession {
   factory CognitiveSession.fromJson(Map<String, dynamic> json) {
     // Si le JSON contient un objet playerInfo imbriqué (cas du dashboard)
     final playerInfo = json['playerInfo'] as Map<String, dynamic>?;
-    final nameFromInfo = playerInfo != null
-        ? "${playerInfo['firstName']} ${playerInfo['lastName']}"
+    final nameFromInfo = playerInfo != null 
+        ? "${playerInfo['firstName']} ${playerInfo['lastName']}" 
         : null;
     final posFromInfo = playerInfo?['position'];
 

@@ -209,22 +209,14 @@ class ApiService {
         headers: await _authHeaders(),
       );
 
-      final dynamic data = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        final users = data is List
-            ? data
-            : (data is Map<String, dynamic> ? (data['users'] ?? []) : []);
-        return {
-          'success': true,
-          'data': {'users': users},
-        };
+        return {'success': true, 'data': data};
       } else {
         return {
           'success': false,
-          'message': data is Map<String, dynamic>
-              ? (data['message'] ?? 'Failed to get pending users')
-              : 'Failed to get pending users',
+          'message': data['message'] ?? 'Failed to get pending users',
         };
       }
     } catch (e) {
@@ -240,22 +232,14 @@ class ApiService {
         headers: await _authHeaders(),
       );
 
-      final dynamic data = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        final users = data is List
-            ? data
-            : (data is Map<String, dynamic> ? (data['users'] ?? []) : []);
-        return {
-          'success': true,
-          'data': {'users': users},
-        };
+        return {'success': true, 'data': data};
       } else {
         return {
           'success': false,
-          'message': data is Map<String, dynamic>
-              ? (data['message'] ?? 'Failed to get users')
-              : 'Failed to get users',
+          'message': data['message'] ?? 'Failed to get users',
         };
       }
     } catch (e) {

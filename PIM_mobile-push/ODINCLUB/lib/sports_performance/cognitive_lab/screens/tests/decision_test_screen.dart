@@ -79,7 +79,7 @@ class _DecisionTestScreenState extends State<DecisionTestScreen> with SingleTick
   int _timeLeft = 4;
   Timer? _timer;
   DateTime? _questionStartTime;
-  bool _isScanPhase = true;
+  bool _isScanPhase = true; 
 
   int _correctAnswers = 0;
   int _wrongAnswers = 0;
@@ -113,7 +113,7 @@ class _DecisionTestScreenState extends State<DecisionTestScreen> with SingleTick
     _selectedIndex = null;
     _isScanPhase = true;
     _timeLeft = 4;
-
+    
     setState(() {});
 
     // Elite Scan phase: 1.2s to see and digest
@@ -202,7 +202,7 @@ class _DecisionTestScreenState extends State<DecisionTestScreen> with SingleTick
   Widget build(BuildContext context) {
     final scenario = _scenarios[_scenarioIndex];
     final showOptions = !_isScanPhase;
-
+    
     return Column(
       children: [
         // HUD
@@ -261,7 +261,7 @@ class _DecisionTestScreenState extends State<DecisionTestScreen> with SingleTick
                           ),
                         ),
                       ),
-
+                      
                       // Scenario Info
                       Center(
                         child: Column(
@@ -321,7 +321,7 @@ class _DecisionTestScreenState extends State<DecisionTestScreen> with SingleTick
                   ...List.generate(scenario.options.length, (i) {
                     final isCorrect = _answered && i == scenario.correctIndex;
                     final isSelected = _answered && i == _selectedIndex;
-
+                    
                     return GestureDetector(
                       onTap: () => _onAnswerTap(i),
                       child: Container(

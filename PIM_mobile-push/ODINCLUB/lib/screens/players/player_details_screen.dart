@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../theme/app_theme.dart';
-import '../../sports_performance/cognitive_lab/screens/cognitive_dashboard_screen.dart';
-import '../../ui/shell/app_shell.dart';
 
 class PlayerDetailsScreen extends StatefulWidget {
   final String playerId;
@@ -84,77 +82,7 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
                     _detailRow('Injured', _player!['isInjured'] == true ? 'Yes' : 'No'),
                     if ((_player!['injuryDetails'] ?? '').toString().isNotEmpty)
                       _detailRow('Injury details', _player!['injuryDetails']),
-                    const SizedBox(height: 32),
-                    
-                    // Labo Cognitif Section
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [AppTheme.odinDarkBlue, const Color(0xFF0F172A)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(color: Colors.cyanAccent.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4)),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(Icons.psychology, color: Colors.cyanAccent, size: 28),
-                              const SizedBox(width: 12),
-                              Text(
-                                'LABO COGNITIF IA',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 1.2,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'Évaluer la fatigue mentale et la préparation cognitive du joueur.',
-                            style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 13),
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                final shell = AppShellScope.of(context);
-                                if (shell != null) {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => CognitiveDashboardScreen(
-                                        session: shell.session,
-                                        targetPlayerId: widget.playerId,
-                                        targetPlayerName: '${_player!['firstName']} ${_player!['lastName']}',
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.cyanAccent,
-                                foregroundColor: const Color(0xFF0F172A),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                              ),
-                              child: const Text('OUVRIR LE LABO', style: TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
                     Text(
                       'Analyses',
                       style: TextStyle(

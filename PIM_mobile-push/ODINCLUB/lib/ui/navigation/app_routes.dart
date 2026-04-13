@@ -314,7 +314,7 @@ class AppRoutes {
       case squadCognitiveOverview:
         return AppRouteData(
           title: 'Vue Equipe Cognitive',
-          builder: (_) => SquadCognitiveOverviewScreen(session: session),
+          builder: (_) => const SquadCognitiveOverviewScreen(),
           showAppBar: false,
           usePadding: false,
         );

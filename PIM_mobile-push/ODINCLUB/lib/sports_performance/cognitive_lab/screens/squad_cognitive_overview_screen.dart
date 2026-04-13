@@ -1,13 +1,13 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:fl_chart/fl_chart.dart';
 import '../providers/cognitive_lab_provider.dart';
-import '../../../theme/app_theme.dart';
-import '../../../../user_management/models/user_management_models.dart';
+import '../../../../ui/shell/app_shell.dart';
 import 'cognitive_dashboard_screen.dart';
 
 class SquadCognitiveOverviewScreen extends StatefulWidget {
-  final SessionModel session;
-  const SquadCognitiveOverviewScreen({super.key, required this.session});
+  const SquadCognitiveOverviewScreen({super.key});
 
   @override
   State<SquadCognitiveOverviewScreen> createState() => _SquadCognitiveOverviewScreenState();
@@ -22,42 +22,117 @@ class _SquadCognitiveOverviewScreenState extends State<SquadCognitiveOverviewScr
     });
   }
 
+  Color _getStatusColor(String status) {
+    switch (status.toUpperCase()) {
+      case 'READY':
+        return Colors.cyanAccent;
+      case 'NORMAL':
+        return Colors.greenAccent;
+      case 'FATIGUED':
+        return Colors.orangeAccent;
+      case 'OVERLOADED':
+        return Colors.redAccent;
+      case 'CRITICAL':
+      case 'RECOVERY REQUIRED':
+        return Colors.red;
+      default:
+        return Colors.blueGrey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: const Color(0xFF0F172A),
+      appBar: AppBar(
+        title: const Text('SQUAD RISK OVERVIEW', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, letterSpacing: 2, fontSize: 16)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
+          onPressed: () {
+            final shell = AppShellScope.of(context);
+            if (shell != null) {
+              shell.goBack();
+            } else {
+              Navigator.of(context).maybePop();
+            }
+          },
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body: Consumer<CognitiveLabProvider>(
         builder: (context, provider, child) {
+          if (provider.isLoading) {
+            return const Center(child: CircularProgressIndicator(color: Colors.cyanAccent));
+          }
+
+          final summary = provider.squadSummary;
+          final atRisk = provider.atRiskPlayers;
+          final totalTests = summary.values
+              .whereType<num>()
+              .fold<int>(0, (acc, v) => acc + v.toInt());
+
+          if (summary.isEmpty || totalTests == 0) {
+            return const Center(child: Text('NO DATA FOR TODAY', style: TextStyle(color: Colors.white24, fontWeight: FontWeight.w900, letterSpacing: 2)));
+          }
+
           return Container(
             decoration: BoxDecoration(
               gradient: RadialGradient(
-                center: const Alignment(0, -0.6),
+                center: const Alignment(0, -0.5),
                 radius: 1.5,
                 colors: [
-                  const Color(0xFF1E293B).withOpacity(0.4),
+                  const Color(0xFF1E293B).withOpacity(0.5),
                   const Color(0xFF0F172A),
                 ],
               ),
             ),
-            child: SafeArea(
-              child: RefreshIndicator(
-                onRefresh: () => provider.fetchSquadOverview(),
-                color: Colors.cyanAccent,
-                backgroundColor: const Color(0xFF1E293B),
-                child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    _buildAppBar(),
-                    if (provider.isLoading)
-                      const SliverFillRemaining(
-                        child: Center(child: CircularProgressIndicator(color: Colors.cyanAccent)),
-                      )
-                    else ...[
-                      _buildSummaryStats(provider),
-                      _buildAtRiskSection(provider),
-                      _buildRecentSessionsHeader(),
-                      _buildRecentSessionsList(provider),
+            child: RefreshIndicator(
+              onRefresh: () => provider.fetchSquadOverview(),
+              color: Colors.cyanAccent,
+              backgroundColor: const Color(0xFF1E293B),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 120, bottom: 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildOverviewCard(summary, totalTests),
+                    const SizedBox(height: 40),
+                    if (atRisk.isNotEmpty) ...[
+                      Row(
+                        children: [
+                          const Icon(Icons.emergency_outlined, color: Colors.redAccent, size: 20),
+                          const SizedBox(width: 8),
+                          Text(
+                            'AT-RISK PLAYERS (${atRisk.length})',
+                            style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 2),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      ...atRisk.map((player) => _buildPlayerCard(context, player)),
+                      const SizedBox(height: 40),
                     ],
+                    
+                    Row(
+                      children: [
+                        const Icon(Icons.history_toggle_off, color: Colors.cyanAccent, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          'COMPLETED ASSESSMENTS (${provider.allSessions.length})',
+                          style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 2),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    if (provider.allSessions.isEmpty)
+                      _buildAllClearCard()
+                    else
+                      ...provider.allSessions.map((player) => _buildPlayerCard(context, player)),
                   ],
                 ),
               ),
@@ -68,278 +143,224 @@ class _SquadCognitiveOverviewScreenState extends State<SquadCognitiveOverviewScr
     );
   }
 
-  Widget _buildAppBar() {
-    return SliverAppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      centerTitle: true,
-      pinned: true,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
-        onPressed: () => Navigator.pop(context),
-      ),
-      title: const Text(
-        'VUE ÉQUIPE COGNITIVE',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 2,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSummaryStats(CognitiveLabProvider provider) {
-    final summary = provider.squadSummary;
-    final readiness = summary['avgReadiness'] ?? 0.0;
+  Widget _buildOverviewCard(Map<String, dynamic> summary, int total) {
+    List<PieChartSectionData> sections = [];
     
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1E293B).withOpacity(0.6),
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.1)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.cyanAccent.withOpacity(0.05),
-                    blurRadius: 20,
-                    spreadRadius: 2,
-                  )
-                ],
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'PRÉPARATION GLOBALE',
-                    style: TextStyle(
-                      color: Color(0xFF94A3B8),
-                      fontSize: 10,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 120,
-                        height: 120,
-                        child: CircularProgressIndicator(
-                          value: readiness / 100,
-                          strokeWidth: 10,
-                          backgroundColor: Colors.white.withOpacity(0.05),
-                          valueColor: AlwaysStoppedAnimation(
-                            readiness > 70 ? Colors.cyanAccent : Colors.orangeAccent,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        '${readiness.toStringAsFixed(0)}%',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildMiniStat('FOCUS', '${summary['avgFocus'] ?? 0}%'),
-                      _buildMiniStat('MÉMOIRE', '${summary['avgMemory'] ?? 0}%'),
-                      _buildMiniStat('RÉACTION', '${summary['avgReaction'] ?? 0}ms'),
-                    ],
-                  ),
-                ],
-              ),
+    summary.forEach((key, value) {
+      if (value > 0) {
+        final color = _getStatusColor(key);
+        sections.add(
+          PieChartSectionData(
+            color: color,
+            value: (value as int).toDouble(),
+            title: '',
+            radius: 20,
+            badgeWidget: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Text('$value', style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMiniStat(String label, String value) {
-    return Column(
-      children: [
-        Text(
-          label,
-          style: const TextStyle(color: Color(0xFF64748B), fontSize: 8, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w900, letterSpacing: 0.5),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAtRiskSection(CognitiveLabProvider provider) {
-    if (provider.atRiskPlayers.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
-
-    return SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              children: [
-                Icon(Icons.warning_amber_rounded, color: Colors.orangeAccent, size: 18),
-                SizedBox(width: 8),
-                Text(
-                  'ALERTES DE FATIGUE CRITIQUE',
-                  style: TextStyle(color: Colors.orangeAccent, fontWeight: FontWeight.w900, letterSpacing: 1.2, fontSize: 12),
-                ),
-              ],
-            ),
+            badgePositionPercentageOffset: 1.3,
           ),
-          SizedBox(
-            height: 120,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: provider.atRiskPlayers.length,
-              itemBuilder: (context, index) {
-                final player = provider.atRiskPlayers[index];
-                return GestureDetector(
-                  onTap: () => _navigateToPlayerLab(player['id'], player['name']),
-                  child: Container(
-                    width: 100,
-                    margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.redAccent.withOpacity(0.3)),
+        );
+      }
+    });
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.03),
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: Colors.white.withOpacity(0.08)),
+          ),
+          child: Column(
+            children: [
+              const Text(
+                "SQUAD READINESS",
+                style: TextStyle(color: Colors.white24, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 4),
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 180,
+                child: Stack(
+                  children: [
+                    PieChart(
+                      PieChartData(
+                        sectionsSpace: 4,
+                        centerSpaceRadius: 65,
+                        sections: sections,
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '$total',
+                            style: const TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900),
+                          ),
+                          const Text(
+                            'PLAYERS TESTED',
+                            style: TextStyle(color: Colors.white24, fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              Wrap(
+                spacing: 20,
+                runSpacing: 12,
+                alignment: WrapAlignment.center,
+                children: summary.entries.where((e) => e.value > 0).map((e) {
+                  final color = _getStatusColor(e.key);
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: color.withOpacity(0.2)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white.withOpacity(0.1),
-                          child: const Icon(Icons.person, color: Colors.white, size: 20),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          player['name'] ?? 'Joueur',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '${player['readiness'] ?? 0}% Ready',
-                          style: const TextStyle(color: Colors.redAccent, fontSize: 8, fontWeight: FontWeight.w900),
-                        ),
+                        Container(width: 6, height: 6, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+                        const SizedBox(width: 8),
+                        Text(e.key.toUpperCase(), style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
                       ],
                     ),
-                  ),
-                );
-              },
-            ),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAllClearCard() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.cyanAccent.withOpacity(0.02),
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.1)),
+      ),
+      child: const Column(
+        children: [
+          Icon(Icons.verified_user_outlined, color: Colors.cyanAccent, size: 48),
+          SizedBox(height: 16),
+          Text('OPTIMAL READINESS', style: TextStyle(color: Colors.cyanAccent, fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 2)),
+          SizedBox(height: 4),
+          Text('No players flagged for cognitive fatigue.', style: TextStyle(color: Colors.white24, fontSize: 10)),
         ],
       ),
     );
   }
 
-  Widget _buildRecentSessionsHeader() {
-    return const SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-        child: Text(
-          'Derniers Tests Effectués',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRecentSessionsList(CognitiveLabProvider provider) {
-    if (provider.allSessions.isEmpty) {
-      return const SliverFillRemaining(
-        hasScrollBody: false,
-        child: Center(
-          child: Text('Aucune session récente.', style: TextStyle(color: Color(0xFF64748B))),
-        ),
-      );
-    }
-
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          final session = provider.allSessions[index];
-          final readiness = session['readinessScore'] ?? 0;
-          
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF1E293B).withOpacity(0.4),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withOpacity(0.05)),
+  Widget _buildPlayerCard(BuildContext context, Map<String, dynamic> player) {
+    final statusColor = _getStatusColor(player['status']);
+    
+    return GestureDetector(
+      onTap: () {
+        final session = AppShellScope.of(context)?.session;
+        if (session != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => CognitiveDashboardScreen(
+                session: session,
+                targetPlayerId: player['playerId'],
+                targetPlayerName: player['playerName'], 
+                isReadOnly: false,
+              ),
             ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              onTap: () => _navigateToPlayerLab(session['playerId'], session['playerName']),
-              leading: CircleAvatar(
-                backgroundColor: Colors.cyanAccent.withOpacity(0.1),
-                child: const Icon(Icons.psychology, color: Colors.cyanAccent, size: 20),
+          );
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.04),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: statusColor.withOpacity(0.2)),
+        ),
+        child: Row(
+          children: [
+            // Avatar (Initials)
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [statusColor.withOpacity(0.2), statusColor.withOpacity(0.05)]),
+                shape: BoxShape.circle,
+                border: Border.all(color: statusColor.withOpacity(0.3)),
               ),
-              title: Text(
-                session['playerName'] ?? 'Joueur Inconnu',
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              child: Center(
+                child: Text(
+                  (player['playerName'] as String?)?.isNotEmpty == true ? player['playerName'][0] : "P",
+                  style: TextStyle(color: statusColor, fontSize: 18, fontWeight: FontWeight.w900),
+                ),
               ),
-              subtitle: Text(
-                'Test: ${session['testType'] ?? 'N/A'} • ${session['timeAgo'] ?? 'Instant'}',
-                style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12),
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '$readiness%',
-                    style: TextStyle(
-                      color: readiness > 70 ? Colors.cyanAccent : Colors.orangeAccent,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 18,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        player['playerName']?.toUpperCase() ?? 'PLAYER PROFILE',
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 13, letterSpacing: 1),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                        child: Text(
+                          player['status'].toUpperCase(),
+                          style: TextStyle(color: statusColor, fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: 1),
+                        ),
+                      ),
+                    ],
                   ),
-                  const Text(
-                    'READY',
-                    style: TextStyle(color: Color(0xFF64748B), fontSize: 8, fontWeight: FontWeight.w900),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Text(
+                        'READINESS: ${player['mentalScore']?.toStringAsFixed(0) ?? "N/A"}%',
+                        style: TextStyle(color: statusColor, fontSize: 18, fontWeight: FontWeight.w900),
+                      ),
+                      const Spacer(),
+                      Text(
+                        player['playerPosition'] ?? '',
+                        style: const TextStyle(color: Colors.white10, fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    player['recommendation'],
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white38, fontSize: 10, height: 1.4),
                   ),
                 ],
               ),
             ),
-          );
-        },
-        childCount: provider.allSessions.length,
-      ),
-    );
-  }
-
-  void _navigateToPlayerLab(String? playerId, String? playerName) {
-    if (playerId == null) return;
-    
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CognitiveDashboardScreen(
-          session: widget.session,
-          targetPlayerId: playerId,
-          targetPlayerName: playerName,
+            const SizedBox(width: 12),
+            const Icon(Icons.arrow_forward_ios, color: Colors.white10, size: 14),
+          ],
         ),
       ),
     );

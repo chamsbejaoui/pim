@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
 import '../../../../user_management/models/user_management_models.dart';
+import '../../../../ui/shell/app_shell.dart';
 import '../providers/cognitive_lab_provider.dart';
 import '../models/cognitive_session.dart';
 import 'cognitive_test_flow_screen.dart';
@@ -17,7 +18,7 @@ class CognitiveDashboardScreen extends StatefulWidget {
   final bool isReadOnly;
 
   const CognitiveDashboardScreen({
-    super.key,
+    super.key, 
     required this.session,
     this.targetPlayerId,
     this.targetPlayerName,
@@ -68,7 +69,14 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            final shell = AppShellScope.of(context);
+            if (shell != null) {
+              shell.goBack();
+            } else {
+              Navigator.of(context).maybePop();
+            }
+          },
         ),
       ),
       body: Consumer<CognitiveLabProvider>(
@@ -353,10 +361,34 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
   }
 
   Widget _buildRadarChart(dynamic session) {
-    final reactionScore = (session.scores?.reactionScore ?? 0).toDouble();
-    final focusScore = (session.scores?.focusScore ?? 0).toDouble();
-    final memoryScore = (session.scores?.memoryScore ?? 0).toDouble();
-    final tacticalScore = (session.scores?.tacticalIqScore ?? 0).toDouble();
+    final entries = <MapEntry<String, double>>[];
+
+    final reaction = session.scores?.reactionScore;
+    if (reaction != null) {
+      entries.add(MapEntry('REACTION', reaction.toDouble()));
+    }
+
+    final focus = session.scores?.focusScore;
+    if (focus != null) {
+      entries.add(MapEntry('FOCUS', focus.toDouble()));
+    }
+
+    final memory = session.scores?.memoryScore;
+    if (memory != null) {
+      entries.add(MapEntry('MEMORY', memory.toDouble()));
+    }
+
+    final tactical = session.scores?.tacticalIqScore;
+    if (tactical != null) {
+      entries.add(MapEntry('VISION', tactical.toDouble()));
+    }
+
+    if (entries.isEmpty) {
+      return const Text(
+        'No cognitive metrics available yet.',
+        style: TextStyle(color: Colors.white38, fontSize: 12),
+      );
+    }
 
     return Column(
       children: [
@@ -377,18 +409,16 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
                   borderColor: Colors.cyanAccent,
                   borderWidth: 2,
                   entryRadius: 3,
-                  dataEntries: [
-                    RadarEntry(value: reactionScore),
-                    RadarEntry(value: focusScore),
-                    RadarEntry(value: memoryScore),
-                    if (session.scores?.tacticalIqScore != null) RadarEntry(value: tacticalScore),
-                  ],
+                  dataEntries: entries
+                      .map((entry) => RadarEntry(value: entry.value))
+                      .toList(),
                 ),
               ],
               getTitle: (index, angle) {
-                final titles = ['REACTION', 'FOCUS', 'MEMORY'];
-                if (session.scores?.tacticalIqScore != null) titles.add('VISION');
-                return RadarChartTitle(text: titles[index], angle: angle);
+                return RadarChartTitle(
+                  text: entries[index].key,
+                  angle: angle,
+                );
               },
             ),
           ),
@@ -396,13 +426,15 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _radarLegend('REACTION', reactionScore, Colors.cyanAccent),
-            _radarLegend('FOCUS', focusScore, Colors.cyanAccent),
-            _radarLegend('MEMORY', memoryScore, Colors.cyanAccent),
-            if (session.scores?.tacticalIqScore != null)
-              _radarLegend('VISION', tacticalScore, Colors.orangeAccent),
-          ],
+          children: entries
+              .map((entry) => _radarLegend(
+                    entry.key,
+                    entry.value,
+                    entry.key == 'VISION'
+                        ? Colors.orangeAccent
+                        : Colors.cyanAccent,
+                  ))
+              .toList(),
         ),
         if (session.scores?.tacticalProfile != null) ...[
           const SizedBox(height: 16),
@@ -472,11 +504,11 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
       ),
     );
   }
-
+  
   Widget _buildTrainingReadinessBadge(String readiness) {
     Color color;
     IconData icon;
-
+    
     switch (readiness.toUpperCase()) {
       case 'FULL TRAINING':
         color = Colors.cyanAccent;
@@ -578,7 +610,7 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
           const Icon(Icons.psychology_outlined, color: Colors.white10, size: 80),
           const SizedBox(height: 24),
           const Text(
-            "NO DATA FOR TODAY",
+             "NO DATA FOR TODAY",
             style: TextStyle(color: Colors.white24, fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 2),
           ),
           const SizedBox(height: 8),
@@ -610,7 +642,7 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
               ),
             ),
           );
-
+          
           if (result == true) {
             final idToFetch = widget.targetPlayerId ?? widget.session.userId;
             context.read<CognitiveLabProvider>().fetchDashboard(idToFetch);
@@ -657,10 +689,10 @@ class _CognitiveDashboardScreenState extends State<CognitiveDashboardScreen> {
               ),
             ),
           );
-
+          
           if (result != null) {
             final idToFetch = widget.targetPlayerId ?? widget.session.userId;
-
+            
             showDialog(
               context: context,
               barrierDismissible: false,

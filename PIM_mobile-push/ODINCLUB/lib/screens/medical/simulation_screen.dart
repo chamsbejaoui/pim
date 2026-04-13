@@ -12,7 +12,8 @@ import '../../services/commentary_service.dart';
 import '../../services/match_simulation_service.dart';
 import '../../services/simulation_service.dart';
 import '../../services/alert_service.dart';
-import '../../ui/theme/medical_theme.dart';
+import '../../theme/app_theme.dart';
+import '../../ui/theme/app_colors.dart';
 import '../../ui/theme/app_spacing.dart';
 import '../../widgets/alert_overlay.dart';
 
@@ -756,40 +757,19 @@ class _SimulationScreenState extends State<SimulationScreen>
 
   @override
   Widget build(BuildContext context) {
-    return MedicalThemeScope(
-      applyBackground: false,
-      child: Container(
-        decoration: BoxDecoration(gradient: AppTheme.appGradient),
-        child: SafeArea(
-          top: false,
-          child: Stack(
-            children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 450),
-                child: _resultsFuture != null
-                    ? _ResultsView(
-                        resultsFuture: _resultsFuture!,
-                        onReset: _resetSimulation,
-                        summary: MatchSummary(
-                          homeScore: _homeScore,
-                          awayScore: _awayScore,
-                          possessionHome: _possessionHome,
-                          shotsHome: _shotsHome,
-                          shotsAway: _shotsAway,
-                          shotsOnTargetHome: _shotsOnTargetHome,
-                          shotsOnTargetAway: _shotsOnTargetAway,
-                        ),
-                      )
-                    : _SimulationView(
-                        isStarting: _isStarting,
-                        isRunning: _isRunning,
-                        errorMessage: _errorMessage,
-                        fieldBuilder: _buildField,
-                        onStart: _startSimulation,
-                        countdown: _remainingTimeLabel(),
-                        playersFuture: _playersFuture,
-                        selectedIds: _selectedPlayerIds,
-                        onTogglePlayer: _togglePlayer,
+    return Container(
+      decoration: BoxDecoration(gradient: AppTheme.appGradient),
+      child: SafeArea(
+        top: false,
+        child: Stack(
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 450),
+              child: _resultsFuture != null
+                  ? _ResultsView(
+                      resultsFuture: _resultsFuture!,
+                      onReset: _resetSimulation,
+                      summary: MatchSummary(
                         homeScore: _homeScore,
                         awayScore: _awayScore,
                         possessionHome: _possessionHome,
@@ -797,16 +777,34 @@ class _SimulationScreenState extends State<SimulationScreen>
                         shotsAway: _shotsAway,
                         shotsOnTargetHome: _shotsOnTargetHome,
                         shotsOnTargetAway: _shotsOnTargetAway,
-                        eventText: _eventText,
-                        eventFeed: _eventFeed,
-                        commentaryText: _commentaryText,
-                        showCommentary: _showCommentary,
-                        latestAlert: _latestAlert,
                       ),
-              ),
-              AlertOverlay(),
-            ],
-          ),
+                    )
+                  : _SimulationView(
+                      isStarting: _isStarting,
+                      isRunning: _isRunning,
+                      errorMessage: _errorMessage,
+                      fieldBuilder: _buildField,
+                      onStart: _startSimulation,
+                      countdown: _remainingTimeLabel(),
+                      playersFuture: _playersFuture,
+                      selectedIds: _selectedPlayerIds,
+                      onTogglePlayer: _togglePlayer,
+                      homeScore: _homeScore,
+                      awayScore: _awayScore,
+                      possessionHome: _possessionHome,
+                      shotsHome: _shotsHome,
+                      shotsAway: _shotsAway,
+                      shotsOnTargetHome: _shotsOnTargetHome,
+                      shotsOnTargetAway: _shotsOnTargetAway,
+                      eventText: _eventText,
+                      eventFeed: _eventFeed,
+                      commentaryText: _commentaryText,
+                      showCommentary: _showCommentary,
+                      latestAlert: _latestAlert,
+                    ),
+            ),
+            AlertOverlay(),
+          ],
         ),
       ),
     );
@@ -914,7 +912,7 @@ class _SimulationView extends StatelessWidget {
                       : onStart,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryBlue,
-                    foregroundColor: MedicalTheme.surface,
+                    foregroundColor: AppColors.white,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 18,
                       vertical: 12,
@@ -929,7 +927,7 @@ class _SimulationView extends StatelessWidget {
                           height: 18,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: MedicalTheme.surface,
+                            color: AppColors.white,
                           ),
                         )
                       : Text('Start Match Simulation'),
@@ -2074,13 +2072,13 @@ class _FieldPainter extends CustomPainter {
     }
 
     final ballPaint = Paint()
-      ..color = MedicalTheme.surface
+      ..color = AppColors.white
       ..style = PaintingStyle.fill;
     canvas.drawCircle(ballPosition, 6, ballPaint);
     canvas.drawCircle(
       ballPosition,
       10,
-      ballPaint..color = MedicalTheme.surface.withOpacity(0.18),
+      ballPaint..color = AppColors.white.withOpacity(0.18),
     );
   }
 
@@ -2090,7 +2088,7 @@ class _FieldPainter extends CustomPainter {
     }
 
     final lanePaint = Paint()
-      ..color = MedicalTheme.surface.withOpacity(0.12)
+      ..color = AppColors.white.withOpacity(0.12)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 

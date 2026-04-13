@@ -67,14 +67,14 @@ class _CognitiveTestFlowScreenState extends State<CognitiveTestFlowScreen> {
 
       if (mounted) {
         Navigator.pop(context); // close dialog
-
+        
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("ÉVALUATION TERMINÉE AVEC SUCCÈS 🏆"),
             backgroundColor: Colors.cyanAccent,
           ),
         );
-
+        
         Navigator.pop(context, true); // return to dashboard with 'true' to signal refresh
       }
     } catch (e) {

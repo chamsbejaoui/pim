@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../../ui/theme/medical_theme.dart';
 import '../models/nutrition_models.dart';
 import '../services/nutrition_api_service.dart';
 
@@ -17,8 +16,7 @@ class PlayerMedicalSheetScreen extends StatefulWidget {
   });
 
   @override
-  State<PlayerMedicalSheetScreen> createState() =>
-      _PlayerMedicalSheetScreenState();
+  State<PlayerMedicalSheetScreen> createState() => _PlayerMedicalSheetScreenState();
 }
 
 class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
@@ -50,10 +48,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
   MetabolicStatus? _metabolicStatus;
 
   final List<String> _positions = [
-    'Goalkeeper',
-    'Defender',
-    'Midfielder',
-    'Forward',
+    'Goalkeeper', 'Defender', 'Midfielder', 'Forward'
   ];
 
   @override
@@ -76,7 +71,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
     setState(() => _isLoading = true);
     final profile = await _api.getPhysicalProfile(widget.playerId);
     final status = await _api.getMetabolicStatus(widget.playerId);
-
+    
     setState(() {
       _profile = profile;
       _metabolicStatus = status;
@@ -104,8 +99,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
     if (diff > 5) {
       double logTaille = log10(_currentHeight);
       double logDiff = log10(diff);
-      double graisseRaw =
-          495 / (1.0324 - 0.19077 * logDiff + 0.15456 * logTaille) - 450;
+      double graisseRaw = 495 / (1.0324 - 0.19077 * logDiff + 0.15456 * logTaille) - 450;
       _localFat = graisseRaw.clamp(3, 40);
     } else {
       _localFat = 0;
@@ -116,9 +110,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
     // 4. BMR (Mifflin-St Jeor)
     int age = DateTime.now().year - _birthDate.year;
-    _localBmr =
-        ((10 * _currentWeight) + (6.25 * _currentHeight) - (5 * age) + 5)
-            .round();
+    _localBmr = ((10 * _currentWeight) + (6.25 * _currentHeight) - (5 * age) + 5).round();
 
     // 5. Water (Base 0.035L/kg)
     _localWater = _currentWeight * 0.035;
@@ -149,7 +141,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
           _isSaving = false;
           _showSuccess = true;
         });
-
+        
         // Show success animation for 2 seconds
         Future.delayed(const Duration(milliseconds: 2000), () {
           if (mounted) setState(() => _showSuccess = false);
@@ -158,7 +150,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Fiche médicale sauvegardée ✓'),
-            backgroundColor: MedicalTheme.success,
+            backgroundColor: Color(0xFF10B981),
           ),
         );
         _loadProfile();
@@ -167,7 +159,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('ERREUR : $error'),
-            backgroundColor: MedicalTheme.danger,
+            backgroundColor: Colors.redAccent,
             duration: const Duration(seconds: 6),
           ),
         );
@@ -178,7 +170,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('ERREUR RÉSEAU : $e'),
-            backgroundColor: MedicalTheme.danger,
+            backgroundColor: Colors.redAccent,
             duration: const Duration(seconds: 6),
           ),
         );
@@ -188,51 +180,51 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
   @override
   Widget build(BuildContext context) {
-    return MedicalThemeScope(
-      applyBackground: false,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
-          decoration: BoxDecoration(gradient: MedicalTheme.appGradient),
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              _buildAppBar(),
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(height: 24),
-                    if (_isLoading) _buildSkeleton(),
-                    if (!_isLoading && _profile == null && !_isEditing)
-                      _buildEmptyState(),
-                    if (!_isLoading && (_profile != null || _isEditing)) ...[
-                      FadeTransition(
-                        opacity: _animController,
-                        child: Column(
-                          children: [
-                            if (_metabolicStatus?.error != null)
-                              _buildDataConsistencyAlert(
-                                _metabolicStatus!.error!,
-                              ),
-                            _buildPhysicalStats(),
-                            const SizedBox(height: 24),
-                            _buildBodyCompositionRings(),
-                            const SizedBox(height: 24),
-                            _buildEditForm(),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 100),
-                    ],
-                  ]),
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
+      body: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A),
+          image: DecorationImage(
+            image: const NetworkImage('https://www.transparenttextures.com/patterns/carbon-fibre.png'),
+            opacity: 0.03,
+            repeat: ImageRepeat.repeat
+          )
         ),
-        floatingActionButton: _buildFab(),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            _buildAppBar(),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  const SizedBox(height: 24),
+                  if (_isLoading) _buildSkeleton(),
+                  if (!_isLoading && _profile == null && !_isEditing) _buildEmptyState(),
+                  if (!_isLoading && (_profile != null || _isEditing)) ...[
+                    FadeTransition(
+                      opacity: _animController,
+                      child: Column(
+                        children: [
+                          if (_metabolicStatus?.error != null) _buildDataConsistencyAlert(_metabolicStatus!.error!),
+                          _buildPhysicalStats(),
+                          const SizedBox(height: 24),
+                          _buildBodyCompositionRings(),
+                          const SizedBox(height: 24),
+                          _buildEditForm(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 100),
+                  ],
+                ]),
+              ),
+            ),
+          ],
+        ),
       ),
+      floatingActionButton: _buildFab(),
     );
   }
 
@@ -241,17 +233,20 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
       expandedHeight: 200,
       pinned: true,
       stretch: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xFF0F172A),
       flexibleSpace: FlexibleSpaceBar(
-        stretchModes: const [
-          StretchMode.blurBackground,
-          StretchMode.zoomBackground,
-        ],
+        stretchModes: const [StretchMode.blurBackground, StretchMode.zoomBackground],
         background: Stack(
           fit: StackFit.expand,
           children: [
             Container(
-              decoration: BoxDecoration(gradient: MedicalTheme.appGradient),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF1E3A5F), Color(0xFF0F172A)],
+                ),
+              ),
             ),
             // Decorative elements
             Positioned(
@@ -262,7 +257,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                 height: 200,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: MedicalTheme.accentBlue.withOpacity(0.08),
+                  color: const Color(0xFF3B82F6).withOpacity(0.05),
                 ),
               ),
             ),
@@ -275,26 +270,24 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: MedicalTheme.surface,
+                        color: const Color(0xFF1E293B),
                         borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: MedicalTheme.accentBlue.withOpacity(0.3),
-                          width: 2,
-                        ),
-                        boxShadow: MedicalTheme.softShadow,
+                        border: Border.all(color: const Color(0xFF3B82F6).withOpacity(0.3), width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF3B82F6).withOpacity(0.2),
+                            blurRadius: 20,
+                            spreadRadius: 2,
+                          )
+                        ],
                       ),
                       child: Center(
                         child: Text(
                           widget.playerName.isNotEmpty
-                              ? widget.playerName
-                                    .substring(
-                                      0,
-                                      min(2, widget.playerName.length),
-                                    )
-                                    .toUpperCase()
+                              ? widget.playerName.substring(0, min(2, widget.playerName.length)).toUpperCase()
                               : 'JR',
                           style: const TextStyle(
-                            color: MedicalTheme.textPrimary,
+                            color: Colors.white,
                             fontWeight: FontWeight.w900,
                             fontSize: 28,
                             letterSpacing: 1,
@@ -312,7 +305,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                           Text(
                             widget.playerName.toUpperCase(),
                             style: const TextStyle(
-                              color: MedicalTheme.textPrimary,
+                              color: Colors.white,
                               fontSize: 22,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 1.5,
@@ -323,25 +316,16 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                           Row(
                             children: [
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: MedicalTheme.accentBlue.withOpacity(
-                                    0.12,
-                                  ),
+                                  color: const Color(0xFF3B82F6).withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: MedicalTheme.accentBlue.withOpacity(
-                                      0.25,
-                                    ),
-                                  ),
+                                  border: Border.all(color: const Color(0xFF3B82F6).withOpacity(0.2)),
                                 ),
                                 child: Text(
                                   widget.playerPosition,
                                   style: const TextStyle(
-                                    color: MedicalTheme.primaryBlue,
+                                    color: Color(0xFF3B82F6),
                                     fontSize: 10,
                                     fontWeight: FontWeight.w900,
                                     letterSpacing: 1,
@@ -353,7 +337,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                               const Text(
                                 '• FICHE BIOMÉTRIQUE',
                                 style: TextStyle(
-                                  color: MedicalTheme.textMuted,
+                                  color: Color(0xFF64748B),
                                   fontSize: 8,
                                   fontWeight: FontWeight.w900,
                                   letterSpacing: 1,
@@ -373,20 +357,13 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
         ),
       ),
       leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: MedicalTheme.textPrimary,
-          size: 20,
-        ),
+        icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
         onPressed: () => Navigator.pop(context),
       ),
       actions: [
         if (!_isLoading && _profile != null)
           IconButton(
-            icon: Icon(
-              _isEditing ? Icons.close : Icons.tune,
-              color: _isEditing ? MedicalTheme.danger : MedicalTheme.success,
-            ),
+            icon: Icon(_isEditing ? Icons.close : Icons.tune, color: _isEditing ? Colors.redAccent : const Color(0xFF10B981)),
             onPressed: () => setState(() => _isEditing = !_isEditing),
           ),
       ],
@@ -402,53 +379,28 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
     if (bmi < 18.5) {
       bmiStatus = 'DÉFICIT PONDÉRAL';
-      bmiColor = MedicalTheme.warning;
+      bmiColor = Colors.orangeAccent;
     } else if (bmi < 25) {
       bmiStatus = 'ATHLÈTE OPTIMAL';
-      bmiColor = MedicalTheme.success;
+      bmiColor = const Color(0xFF10B981);
     } else if (bmi < 30) {
       bmiStatus = 'SURPOIDS LÉGER';
-      bmiColor = MedicalTheme.warning;
+      bmiColor = Colors.orangeAccent;
     } else {
       bmiStatus = 'RISQUE MÉTABOLIQUE';
-      bmiColor = MedicalTheme.danger;
+      bmiColor = Colors.redAccent;
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'PARAMÈTRES PHYSIQUES',
-          style: TextStyle(
-            color: MedicalTheme.textMuted,
-            fontSize: 10,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 2,
-            decoration: TextDecoration.none,
-          ),
-        ),
+        const Text('PARAMÈTRES PHYSIQUES', style: TextStyle(color: Color(0xFF64748B), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2, decoration: TextDecoration.none)),
         const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildStatCard(
-                'MASSE TOTALE',
-                _profile!.weightKg.toStringAsFixed(1),
-                'KG',
-                MedicalTheme.primaryBlue,
-                Icons.scale,
-              ),
-            ),
+            Expanded(child: _buildStatCard('MASSE TOTALE', _profile!.weightKg.toStringAsFixed(1), 'KG', const Color(0xFF3B82F6), Icons.scale)),
             const SizedBox(width: 12),
-            Expanded(
-              child: _buildStatCard(
-                'STATURE',
-                _profile!.heightCm.toStringAsFixed(1),
-                'CM',
-                MedicalTheme.accentTeal,
-                Icons.height,
-              ),
-            ),
+            Expanded(child: _buildStatCard('STATURE', _profile!.heightCm.toStringAsFixed(1), 'CM', const Color(0xFF8B5CF6), Icons.height)),
           ],
         ),
         const SizedBox(height: 12),
@@ -457,32 +409,21 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
     );
   }
 
-  Widget _buildStatCard(
-    String label,
-    String value,
-    String unit,
-    Color color,
-    IconData icon,
-  ) {
+  Widget _buildStatCard(String label, String value, String unit, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: MedicalTheme.cardDecoration(radius: 20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E293B).withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.15)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  color: MedicalTheme.textMuted,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1,
-                  decoration: TextDecoration.none,
-                ),
-              ),
+              Text(label, style: const TextStyle(color: Color(0xFF64748B), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1, decoration: TextDecoration.none)),
               Icon(icon, color: color.withOpacity(0.5), size: 14),
             ],
           ),
@@ -494,29 +435,13 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.bottomLeft,
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      color: MedicalTheme.textPrimary,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w900,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
+                  child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900, decoration: TextDecoration.none)),
                 ),
               ),
               const SizedBox(width: 4),
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),
-                child: Text(
-                  unit,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w900,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
+                child: Text(unit, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w900, decoration: TextDecoration.none)),
               ),
             ],
           ),
@@ -530,11 +455,10 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withOpacity(0.12), MedicalTheme.surface],
+          colors: [color.withOpacity(0.1), const Color(0xFF1E293B).withOpacity(0.4)],
         ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: MedicalTheme.cardBorder),
-        boxShadow: MedicalTheme.softShadow,
+        border: Border.all(color: color.withOpacity(0.15)),
       ),
       child: Row(
         children: [
@@ -552,48 +476,19 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'IMC / INDICE DE MASSE CORPORELLE',
-                  style: TextStyle(
-                    color: MedicalTheme.textMuted,
-                    fontSize: 8,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
+                const Text('IMC / INDICE DE MASSE CORPORELLE', style: TextStyle(color: Color(0xFF64748B), fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: 1, decoration: TextDecoration.none)),
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Text(
-                      bmi.toStringAsFixed(1),
-                      style: const TextStyle(
-                        color: MedicalTheme.textPrimary,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
+                    Text(bmi.toStringAsFixed(1), style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900, decoration: TextDecoration.none)),
                     const SizedBox(width: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: color.withOpacity(0.12),
+                        color: color,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        status,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 0.5,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
+                      child: Text(status, style: const TextStyle(color: Colors.black, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 0.5, decoration: TextDecoration.none)),
                     ),
                   ],
                 ),
@@ -610,23 +505,19 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
       margin: const EdgeInsets.only(bottom: 24),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        color: MedicalTheme.warning.withOpacity(0.12),
+        color: Colors.orange.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: MedicalTheme.warning.withOpacity(0.4)),
+        border: Border.all(color: Colors.orange.withOpacity(0.3)),
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.warning_amber_rounded,
-            color: MedicalTheme.warning,
-            size: 24,
-          ),
+          const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 24),
           const SizedBox(width: 16),
           Expanded(
             child: Text(
               message,
               style: const TextStyle(
-                color: MedicalTheme.warning,
+                color: Colors.orange,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
                 decoration: TextDecoration.none,
@@ -640,79 +531,43 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
   Widget _buildBodyCompositionRings() {
     if (_profile == null) return const SizedBox.shrink();
-
+    
     // Utilisation des données calculées par le backend si disponibles
     final profileWithCalculations = _metabolicStatus?.profileData ?? _profile!;
-
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'COMPOSITION TISSULAIRE (IA ESTIMATE)',
-          style: TextStyle(
-            color: MedicalTheme.textMuted,
-            fontSize: 10,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 2,
-            decoration: TextDecoration.none,
-          ),
-        ),
+        const Text('COMPOSITION TISSULAIRE (IA ESTIMATE)', style: TextStyle(color: Color(0xFF64748B), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2, decoration: TextDecoration.none)),
         const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildRingCard(
-                'MUSCLE',
-                profileWithCalculations.masseMuscul ?? 0,
-                profileWithCalculations.weightKg,
-                'KG',
-                MedicalTheme.success,
-              ),
-            ),
+            Expanded(child: _buildRingCard('MUSCLE', profileWithCalculations.masseMuscul ?? 0, profileWithCalculations.weightKg, 'KG', const Color(0xFF10B981))),
             const SizedBox(width: 12),
-            Expanded(
-              child: _buildRingCard(
-                'GRASSE',
-                _metabolicStatus?.error != null
-                    ? 0
-                    : (profileWithCalculations.graissePercent ?? 0),
-                100,
-                '%',
-                MedicalTheme.warning,
-                showNoValue: _metabolicStatus?.error != null,
-              ),
-            ),
+            Expanded(child: _buildRingCard(
+              'GRASSE', 
+              _metabolicStatus?.error != null ? 0 : (profileWithCalculations.graissePercent ?? 0), 
+              100, 
+              '%', 
+              _metabolicStatus?.error != null ? Colors.orange : const Color(0xFFF59E0B),
+              showNoValue: _metabolicStatus?.error != null
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _buildRingCard(
-                'EAU',
-                (_metabolicStatus?.targets['hydrationMl'] ?? 0) / 1000,
-                5,
-                'L',
-                MedicalTheme.primaryBlue,
-              ),
-            ),
+            Expanded(child: _buildRingCard('EAU', (_metabolicStatus?.targets['hydrationMl'] ?? 0) / 1000, 5, 'L', const Color(0xFF3B82F6))),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildRingCard(
-    String label,
-    double value,
-    double max,
-    String unit,
-    Color color, {
-    bool showNoValue = false,
-  }) {
+  Widget _buildRingCard(String label, double value, double max, String unit, Color color, {bool showNoValue = false}) {
     final pct = (value / max).clamp(0.0, 1.0);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: MedicalTheme.surfaceAlt,
+        color: const Color(0xFF1E293B).withOpacity(0.4),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withOpacity(0.15)),
       ),
       child: Column(
         children: [
@@ -733,21 +588,11 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                   children: [
                     Text(
                       showNoValue ? '—' : value.toStringAsFixed(0),
-                      style: const TextStyle(
-                        color: MedicalTheme.textPrimary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900, decoration: TextDecoration.none),
                     ),
                     Text(
                       unit,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w900,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w900, decoration: TextDecoration.none),
                     ),
                   ],
                 ),
@@ -755,17 +600,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
             ),
           ),
           const SizedBox(height: 12),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: MedicalTheme.textMuted,
-              fontSize: 9,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1,
-              decoration: TextDecoration.none,
-            ),
-          ),
+          Text(label, textAlign: TextAlign.center, style: const TextStyle(color: Color(0xFF64748B), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1, decoration: TextDecoration.none)),
         ],
       ),
     );
@@ -777,10 +612,9 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: MedicalTheme.surface,
+        color: const Color(0xFF1E293B).withOpacity(0.6),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: MedicalTheme.cardBorder),
-        boxShadow: MedicalTheme.softShadow,
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -788,86 +622,46 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'ÉDITION DU PROFIL ATHLÈTE',
-                style: TextStyle(
-                  color: MedicalTheme.textPrimary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.5,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-              IconButton(
-                onPressed: () => setState(() => _isEditing = false),
-                icon: const Icon(
-                  Icons.close,
-                  color: MedicalTheme.textMuted,
-                  size: 18,
-                ),
-              ),
+              const Text('ÉDITION DU PROFIL ATHLÈTE', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, decoration: TextDecoration.none)),
+              IconButton(onPressed: () => setState(() => _isEditing = false), icon: const Icon(Icons.close, color: Colors.white30, size: 18))
             ],
           ),
           const SizedBox(height: 32),
-
+          
           _buildSliderField(
-            'Poids (KG)',
-            _currentWeight,
-            50,
-            120,
-            (val) => setState(() {
-              _currentWeight = val;
-              _calculateLocalStatus();
-            }),
-            'kg',
-            'Glissez pour modifier',
-            MedicalTheme.success,
+            'Poids (KG)', 
+            _currentWeight, 
+            50, 120, 
+            (val) => setState(() { _currentWeight = val; _calculateLocalStatus(); }),
+            'kg', 'Glissez pour modifier', const Color(0xFF10B981)
           ),
-
+          
           _buildSliderField(
-            'Taille (CM)',
-            _currentHeight,
-            155,
-            210,
-            (val) => setState(() {
-              _currentHeight = val;
-              _calculateLocalStatus();
-            }),
-            'cm',
-            '',
-            MedicalTheme.primaryBlue,
+            'Taille (CM)', 
+            _currentHeight, 
+            155, 210, 
+            (val) => setState(() { _currentHeight = val; _calculateLocalStatus(); }),
+            'cm', '', const Color(0xFF3B82F6)
           ),
-
+          
           _buildSliderField(
-            'Tour de taille (CM)',
-            _currentWaist,
-            60,
-            120,
-            (val) => setState(() {
-              _currentWaist = val;
-              _calculateLocalStatus();
-            }),
-            'cm',
-            'Mesuré au niveau du nombril',
-            MedicalTheme.warning,
+            'Tour de taille (CM)', 
+            _currentWaist, 
+            60, 120, 
+            (val) => setState(() { _currentWaist = val; _calculateLocalStatus(); }),
+            'cm', 'Mesuré au niveau du nombril', Colors.orangeAccent
           ),
-
+          
           _buildSliderField(
-            'Tour de cou (CM)',
-            _currentNeck,
-            30,
-            55,
-            (val) => setState(() {
-              _currentNeck = val;
-              _calculateLocalStatus();
-            }),
-            'cm',
-            'À la base du cou',
-            MedicalTheme.accentTeal,
+            'Tour de cou (CM)', 
+            _currentNeck, 
+            30, 55, 
+            (val) => setState(() { _currentNeck = val; _calculateLocalStatus(); }),
+            'cm', 'À la base du cou', Colors.purpleAccent
           ),
 
           const SizedBox(height: 8),
-
+          
           // Date of birth picker
           InkWell(
             onTap: () async {
@@ -888,7 +682,7 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
               margin: const EdgeInsets.only(bottom: 24),
               decoration: BoxDecoration(
-                color: MedicalTheme.surfaceAlt,
+                color: Colors.black.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -897,30 +691,15 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'DATE DE NAISSANCE',
-                        style: TextStyle(
-                          color: MedicalTheme.textMuted,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1,
-                        ),
-                      ),
+                      const Text('DATE DE NAISSANCE', style: TextStyle(color: Color(0xFF64748B), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1)),
                       const SizedBox(height: 4),
                       Text(
                         "${_birthDate.day}/${_birthDate.month}/${_birthDate.year}",
-                        style: const TextStyle(
-                          color: MedicalTheme.textPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                  const Icon(
-                    Icons.calendar_today,
-                    color: MedicalTheme.textMuted,
-                    size: 18,
-                  ),
+                  const Icon(Icons.calendar_today, color: Color(0xFF64748B), size: 18),
                 ],
               ),
             ),
@@ -928,104 +707,54 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
           DropdownButtonFormField<String>(
             value: _selectedPosition,
-            dropdownColor: MedicalTheme.surface,
-            icon: const Icon(Icons.expand_more, color: MedicalTheme.textMuted),
-            style: const TextStyle(
-              color: MedicalTheme.textPrimary,
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.none,
-            ),
+            dropdownColor: const Color(0xFF1E293B),
+            icon: const Icon(Icons.expand_more, color: Color(0xFF64748B)),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, decoration: TextDecoration.none),
             decoration: InputDecoration(
               labelText: 'POSTE SUR LE TERRAIN',
-              labelStyle: const TextStyle(
-                color: MedicalTheme.textMuted,
-                fontSize: 10,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1,
-              ),
+              labelStyle: const TextStyle(color: Color(0xFF64748B), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1),
               filled: true,
-              fillColor: MedicalTheme.surfaceAlt,
+              fillColor: Colors.black.withOpacity(0.2),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 18,
-              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
             ),
-            onChanged: (val) =>
-                setState(() => _selectedPosition = val ?? 'Midfielder'),
-            items: _positions
-                .map(
-                  (p) =>
-                      DropdownMenuItem(value: p, child: Text(p.toUpperCase())),
-                )
-                .toList(),
+            onChanged: (val) => setState(() => _selectedPosition = val ?? 'Midfielder'),
+            items: _positions.map((p) => DropdownMenuItem(value: p, child: Text(p.toUpperCase()))).toList(),
           ),
 
           const SizedBox(height: 40),
-          const Text(
-            'Calculé automatiquement par l\'IA',
-            style: TextStyle(
-              color: MedicalTheme.success,
-              fontSize: 10,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1.5,
-            ),
-          ),
+          const Text('Calculé automatiquement par l\'IA', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1.5)),
           const SizedBox(height: 20),
-
+          
           _buildIAStatusGrid(),
 
           const SizedBox(height: 40),
           ElevatedButton(
             onPressed: _isSaving ? null : _saveProfile,
             style: ElevatedButton.styleFrom(
-              backgroundColor: _showSuccess
-                  ? MedicalTheme.success
-                  : MedicalTheme.primaryBlue,
-              foregroundColor: MedicalTheme.surface,
+              backgroundColor: _showSuccess ? const Color(0xFF10B981) : const Color(0xFF3B82F6),
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 22),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               elevation: 4,
-              shadowColor:
-                  (_showSuccess
-                          ? MedicalTheme.success
-                          : MedicalTheme.primaryBlue)
-                      .withOpacity(0.3),
+              shadowColor: (_showSuccess ? const Color(0xFF10B981) : const Color(0xFF3B82F6)).withOpacity(0.3),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (_isSaving)
-                  const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: MedicalTheme.surface,
-                    ),
-                  )
+                  const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                 else if (_showSuccess)
                   const Icon(Icons.check, size: 24)
                 else
                   const Icon(Icons.lock_outline, size: 20),
                 const SizedBox(width: 12),
                 Text(
-                  _isSaving
-                      ? 'SAUVEGARDE EN COURS...'
-                      : (_showSuccess
-                            ? 'DONNÉES SÉCURISÉES'
-                            : 'SÉCURISER LES DONNÉES'),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                    letterSpacing: 1.5,
-                    decoration: TextDecoration.none,
-                  ),
+                  _isSaving ? 'SAUVEGARDE EN COURS...' : (_showSuccess ? 'DONNÉES SÉCURISÉES' : 'SÉCURISER LES DONNÉES'), 
+                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, letterSpacing: 1.5, decoration: TextDecoration.none)
                 ),
               ],
             ),
@@ -1035,56 +764,22 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
     );
   }
 
-  Widget _buildSliderField(
-    String label,
-    double value,
-    double min,
-    double max,
-    Function(double) onChanged,
-    String unit,
-    String help,
-    Color color,
-  ) {
-    final effectiveMin = value < min ? value : min;
-    final effectiveMax = value > max ? value : max;
-    final safeValue = value.clamp(effectiveMin, effectiveMax).toDouble();
-
+  Widget _buildSliderField(String label, double value, double min, double max, Function(double) onChanged, String unit, String help, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                color: MedicalTheme.textSecondary,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(label, style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, fontWeight: FontWeight.bold)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  safeValue.toStringAsFixed(0),
-                  style: const TextStyle(
-                    color: MedicalTheme.textPrimary,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                Text(value.toStringAsFixed(0), style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w900)),
                 const SizedBox(width: 4),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
-                  child: Text(
-                    unit,
-                    style: const TextStyle(
-                      color: MedicalTheme.textMuted,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: Text(unit, style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -1095,19 +790,16 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
           data: SliderThemeData(
             trackHeight: 6,
             activeTrackColor: color,
-            inactiveTrackColor: MedicalTheme.cardBorder,
-            thumbColor: MedicalTheme.surface,
+            inactiveTrackColor: Colors.white10,
+            thumbColor: Colors.white,
             overlayColor: color.withOpacity(0.1),
-            thumbShape: const RoundSliderThumbShape(
-              enabledThumbRadius: 10,
-              pressedElevation: 8,
-            ),
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10, pressedElevation: 8),
             overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
           ),
           child: Slider(
-            value: safeValue,
-            min: effectiveMin,
-            max: effectiveMax,
+            value: value,
+            min: min,
+            max: max,
             onChanged: (val) => onChanged(val),
           ),
         ),
@@ -1116,31 +808,10 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '${effectiveMin.toInt()} $unit',
-                style: const TextStyle(
-                  color: MedicalTheme.textMuted,
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('${min.toInt()} $unit', style: const TextStyle(color: Color(0xFF475569), fontSize: 9, fontWeight: FontWeight.bold)),
               if (help.isNotEmpty)
-                Text(
-                  help,
-                  style: const TextStyle(
-                    color: MedicalTheme.textMuted,
-                    fontSize: 9,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              Text(
-                '${effectiveMax.toInt()} $unit',
-                style: const TextStyle(
-                  color: MedicalTheme.textMuted,
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                Text(help, style: const TextStyle(color: Color(0xFF475569), fontSize: 9, fontWeight: FontWeight.bold)),
+              Text('${max.toInt()} $unit', style: const TextStyle(color: Color(0xFF475569), fontSize: 9, fontWeight: FontWeight.bold)),
             ],
           ),
         ),
@@ -1151,68 +822,32 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
   Widget _buildIAStatusGrid() {
     String fatStatus;
-    if (_localBmi < 18.5)
-      fatStatus = 'Déficit';
-    else if (_localBmi < 25)
-      fatStatus = 'Optimal';
-    else
-      fatStatus = 'Surpoids';
+    if (_localBmi < 18.5) fatStatus = 'Déficit';
+    else if (_localBmi < 25) fatStatus = 'Optimal';
+    else fatStatus = 'Surpoids';
 
     return Column(
       children: [
         Row(
           children: [
-            Expanded(
-              child: _buildRealtimeCard(
-                'IMC',
-                _localBmi.toStringAsFixed(1),
-                fatStatus,
-                MedicalTheme.primaryBlue,
-              ),
-            ),
+            Expanded(child: _buildRealtimeCard('IMC', _localBmi.toStringAsFixed(1), fatStatus, const Color(0xFF3B82F6))),
             const SizedBox(width: 12),
-            Expanded(
-              child: _buildRealtimeCard(
-                '% Graisse',
-                '${_localFat.toStringAsFixed(1)}%',
-                'US Navy',
-                MedicalTheme.warning,
-              ),
-            ),
+            Expanded(child: _buildRealtimeCard('% Graisse', '${_localFat.toStringAsFixed(1)}%', 'US Navy', Colors.orangeAccent)),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(
-              child: _buildRealtimeCard(
-                'Muscle',
-                '${_localMuscle.toStringAsFixed(1)} kg',
-                'estimé',
-                MedicalTheme.success,
-              ),
-            ),
+            Expanded(child: _buildRealtimeCard('Muscle', '${_localMuscle.toStringAsFixed(1)} kg', 'estimé', const Color(0xFF10B981))),
             const SizedBox(width: 12),
-            Expanded(
-              child: _buildRealtimeCard(
-                'Eau repos',
-                '${_localWater.toStringAsFixed(2)} L',
-                '/ jour',
-                MedicalTheme.accentTeal,
-              ),
-            ),
+            Expanded(child: _buildRealtimeCard('Eau repos', '${_localWater.toStringAsFixed(2)} L', '/ jour', Colors.purpleAccent)),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildRealtimeCard(
-    String label,
-    String value,
-    String subValue,
-    Color color,
-  ) {
+  Widget _buildRealtimeCard(String label, String value, String subValue, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1223,33 +858,11 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-            ),
-          ),
+          Text(label, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
           const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              color: MedicalTheme.textPrimary,
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
+          Text(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900)),
           const SizedBox(height: 2),
-          Text(
-            subValue,
-            style: const TextStyle(
-              color: MedicalTheme.textMuted,
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(subValue, style: const TextStyle(color: Color(0xFF64748B), fontSize: 9, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -1264,61 +877,33 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-              color: MedicalTheme.surface,
+              color: const Color(0xFF1E293B),
               borderRadius: BorderRadius.circular(30),
-              border: Border.all(color: MedicalTheme.cardBorder),
+              border: Border.all(color: Colors.white.withOpacity(0.05)),
             ),
-            child: const Icon(
-              Icons.person_add_outlined,
-              color: MedicalTheme.textMuted,
-              size: 40,
-            ),
+            child: const Icon(Icons.person_add_outlined, color: Color(0xFF64748B), size: 40),
           ),
           const SizedBox(height: 32),
-          const Text(
-            'INITIALISATION REQUISE',
-            style: TextStyle(
-              color: MedicalTheme.textPrimary,
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 2,
-              decoration: TextDecoration.none,
-            ),
-          ),
+          const Text('INITIALISATION REQUISE', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 2, decoration: TextDecoration.none)),
           const SizedBox(height: 12),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               'Les paramètres biométriques sont nécessaires pour calibrer les algorithmes nutritionnels.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: MedicalTheme.textSecondary,
-                fontSize: 11,
-                height: 1.5,
-                decoration: TextDecoration.none,
-              ),
+              style: TextStyle(color: Color(0xFF64748B), fontSize: 11, height: 1.5, decoration: TextDecoration.none),
             ),
           ),
           const SizedBox(height: 32),
           ElevatedButton(
             onPressed: () => setState(() => _isEditing = true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: MedicalTheme.primaryBlue,
-              foregroundColor: MedicalTheme.surface,
+              backgroundColor: const Color(0xFF10B981),
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
-            child: const Text(
-              'CRÉER LA FICHE BIOMÉTRIQUE',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 12,
-                letterSpacing: 1,
-                decoration: TextDecoration.none,
-              ),
-            ),
+            child: const Text('CRÉER LA FICHE BIOMÉTRIQUE', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1, decoration: TextDecoration.none)),
           ),
         ],
       ),
@@ -1327,17 +912,14 @@ class _PlayerMedicalSheetScreenState extends State<PlayerMedicalSheetScreen>
 
   Widget _buildSkeleton() {
     return Column(
-      children: List.generate(
-        4,
-        (_) => Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          height: 100,
-          decoration: BoxDecoration(
-            color: MedicalTheme.surfaceAlt,
-            borderRadius: BorderRadius.circular(24),
-          ),
+      children: List.generate(4, (_) => Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        height: 100,
+        decoration: BoxDecoration(
+          color: const Color(0xFF1E293B).withOpacity(0.5),
+          borderRadius: BorderRadius.circular(24),
         ),
-      ),
+      )),
     );
   }
 

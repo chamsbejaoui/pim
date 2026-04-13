@@ -22,7 +22,7 @@ import { ReportsModule as AiReportsModule } from './reports/reports.module';
 import { SimulationModule } from './simulation/simulation.module';
 import { SportsPerformanceModule } from './sports-performance/sports-performance.module';
 import { SquadModule } from './squad/squad.module';
-// import { UploadsModule } from './uploads/uploads.module';
+import { UploadsModule } from './uploads/uploads.module';
 import { UsersModule } from './users/users.module';
 import { AiModule } from './ai/ai.module';
 import { SeasonPlansModule } from './season-plans/season-plans.module';
@@ -68,7 +68,7 @@ let memoryServer: MongoMemoryServer | null = null;
     ClubsModule,
     AuthModule,
     FinanceModule,
-    // UploadsModule,
+    UploadsModule,
     NotificationsModule,
     ChatModule,
     PlayersModule,

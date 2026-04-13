@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/heatmap_model.dart';
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class InjuryHeatmapWidget extends StatelessWidget {
   const InjuryHeatmapWidget({
@@ -34,7 +34,7 @@ class InjuryHeatmapWidget extends StatelessWidget {
               errorBuilder: (_, __, ___) => Icon(
                 Icons.accessibility_new,
                 size: width * 0.55,
-                color: MedicalTheme.textSecondary,
+                color: AppTheme.textSecondary,
               ),
             ),
             for (final zone in _zones)
@@ -51,12 +51,12 @@ class InjuryHeatmapWidget extends StatelessWidget {
 
   Color _colorForProbability(double probability) {
     if (probability < 0.3) {
-      return MedicalTheme.success;
+      return AppTheme.success;
     }
     if (probability < 0.6) {
-      return MedicalTheme.warning;
+      return AppTheme.warning;
     }
-    return MedicalTheme.danger;
+    return AppTheme.danger;
   }
 
   Set<HeatmapZoneId> _resolveZones(String injuryType) {
@@ -107,7 +107,7 @@ class _HeatmapZoneOverlay extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final glow = color == MedicalTheme.danger;
+    final glow = color == AppTheme.danger;
 
     return Positioned.fill(
       child: LayoutBuilder(

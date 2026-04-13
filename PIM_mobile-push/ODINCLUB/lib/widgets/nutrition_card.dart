@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/nutrition_model.dart';
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class NutritionCard extends StatelessWidget {
   const NutritionCard({super.key, required this.plan});
@@ -27,7 +27,18 @@ class NutritionCard extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(16),
-        decoration: MedicalTheme.cardDecoration(radius: 18),
+        decoration: BoxDecoration(
+          color: const Color(0xFF0B1A2B),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppTheme.cardBorder),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.accentBlue.withOpacity(0.25),
+              blurRadius: 24,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,7 +68,7 @@ class NutritionCard extends StatelessWidget {
               'Daily Calories: ${plan.calories} kcal',
               style:
                   textTheme.bodyMedium?.copyWith(
-                    color: MedicalTheme.textSecondary,
+                    color: AppTheme.textSecondary,
                     fontWeight: FontWeight.w600,
                   ) ??
                   const TextStyle(fontSize: 13),
@@ -113,7 +124,7 @@ class _TagChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: MedicalTheme.accentBlue.withOpacity(0.15),
+        color: AppTheme.accentBlue.withOpacity(0.15),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -137,9 +148,9 @@ class _MacroTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-          color: MedicalTheme.surfaceAlt,
+          color: AppTheme.surfaceAlt,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: MedicalTheme.cardBorder),
+          border: Border.all(color: AppTheme.cardBorder),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +159,7 @@ class _MacroTile extends StatelessWidget {
               label,
               style:
                   textTheme.labelMedium?.copyWith(
-                    color: MedicalTheme.textSecondary,
+                    color: AppTheme.textSecondary,
                   ) ??
                   const TextStyle(fontSize: 11),
             ),
@@ -185,7 +196,7 @@ class _MealSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, size: 18, color: MedicalTheme.accentBlue),
+            Icon(icon, size: 18, color: AppTheme.accentBlue),
             const SizedBox(width: 8),
             Text(
               title,
@@ -203,7 +214,7 @@ class _MealSection extends StatelessWidget {
               '- $item',
               style:
                   textTheme.bodySmall?.copyWith(
-                    color: MedicalTheme.textSecondary,
+                    color: AppTheme.textSecondary,
                   ) ??
                   const TextStyle(fontSize: 12),
             ),

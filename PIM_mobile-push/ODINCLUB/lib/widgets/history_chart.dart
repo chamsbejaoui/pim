@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../models/medical_history_record_model.dart';
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class HistoryChart extends StatelessWidget {
   const HistoryChart({super.key, required this.records});
@@ -16,9 +16,9 @@ class HistoryChart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: MedicalTheme.card,
+        color: AppTheme.card,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: MedicalTheme.cardBorder),
+        border: Border.all(color: AppTheme.cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,12 +41,12 @@ class HistoryChart extends StatelessWidget {
                   LineChartBarData(
                     spots: points,
                     isCurved: true,
-                    color: MedicalTheme.accentBlue,
+                    color: AppTheme.accentBlue,
                     barWidth: 3,
                     dotData: const FlDotData(show: false),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: MedicalTheme.accentBlue.withValues(alpha: 0.2),
+                      color: AppTheme.accentBlue.withValues(alpha: 0.2),
                     ),
                   ),
                 ],

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../models/simulation_match_history_model.dart';
 import '../../services/simulation_history_service.dart';
+import '../../theme/app_theme.dart';
 import '../../ui/components/app_section_header.dart';
 import '../../ui/theme/app_spacing.dart';
-import '../../ui/theme/medical_theme.dart';
 
 class SimulationHistoryScreen extends StatefulWidget {
   const SimulationHistoryScreen({super.key});
@@ -33,55 +33,52 @@ class _SimulationHistoryScreenState extends State<SimulationHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MedicalThemeScope(
-      applyBackground: false,
-      child: Container(
-        decoration: BoxDecoration(gradient: AppTheme.appGradient),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSpacing.s16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppSectionHeader(
-                  title: 'Match history',
-                  subtitle: 'Simulation medical match results',
-                  action: IconButton(
-                    tooltip: 'Refresh',
-                    onPressed: _refresh,
-                    icon: const Icon(Icons.refresh_rounded),
-                  ),
+    return Container(
+      decoration: BoxDecoration(gradient: AppTheme.appGradient),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.s16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSectionHeader(
+                title: 'Match history',
+                subtitle: 'Simulation medical match results',
+                action: IconButton(
+                  tooltip: 'Refresh',
+                  onPressed: _refresh,
+                  icon: const Icon(Icons.refresh_rounded),
                 ),
-                const SizedBox(height: AppSpacing.s16),
-                FutureBuilder<List<SimulationMatchHistoryItem>>(
-                  future: _historyFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Text(
-                        'Unable to load match history.',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      );
-                    }
-                    final items = snapshot.data ?? [];
-                    if (items.isEmpty) {
-                      return Text(
-                        'No match history yet.',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      );
-                    }
-
-                    return Column(
-                      children: items
-                          .map((item) => _HistoryCard(item: item))
-                          .toList(),
+              ),
+              const SizedBox(height: AppSpacing.s16),
+              FutureBuilder<List<SimulationMatchHistoryItem>>(
+                future: _historyFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Text(
+                      'Unable to load match history.',
+                      style: Theme.of(context).textTheme.bodySmall,
                     );
-                  },
-                ),
-              ],
-            ),
+                  }
+                  final items = snapshot.data ?? [];
+                  if (items.isEmpty) {
+                    return Text(
+                      'No match history yet.',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    );
+                  }
+
+                  return Column(
+                    children: items
+                        .map((item) => _HistoryCard(item: item))
+                        .toList(),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

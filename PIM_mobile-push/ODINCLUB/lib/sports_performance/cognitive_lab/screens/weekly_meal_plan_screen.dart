@@ -43,7 +43,7 @@ class _WeeklyMealPlanScreenState extends State<WeeklyMealPlanScreen> {
     // Simule un temps de "réflexion" de l'IA pour renforcer l'aspect premium
     await Future.delayed(const Duration(seconds: 2));
     final plan = await _api.generateAiWeeklyPlan(widget.playerId);
-
+    
     if (mounted) {
       if (plan != null) {
         setState(() {
@@ -163,8 +163,8 @@ class _WeeklyMealPlanScreenState extends State<WeeklyMealPlanScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(dayPlan.day.substring(0, 3).toUpperCase(),
-                        style: TextStyle(color: isSelected ? Colors.white : Colors.white38, fontSize: 10, fontWeight: FontWeight.bold)),
+                    Text(dayPlan.day.substring(0, 3).toUpperCase(), 
+                      style: TextStyle(color: isSelected ? Colors.white : Colors.white38, fontSize: 10, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
                     Text('${index + 1}', style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900)),
                   ],

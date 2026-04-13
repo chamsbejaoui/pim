@@ -207,17 +207,8 @@ class UserManagementApi {
         .toList();
   }
 
-  Future<void> approveUser(
-    String token,
-    String userId,
-    bool approve, {
-    bool asAdmin = false,
-  }) async {
-    final path = asAdmin
-        ? '/users/$userId/approval/admin'
-        : '/users/$userId/approval';
-
-    await _patch(path, {
+  Future<void> approveUser(String token, String userId, bool approve) async {
+    await _patch('/users/$userId/approval', {
       'status': approve ? 'ACTIVE' : 'REJECTED',
     }, token: token);
   }

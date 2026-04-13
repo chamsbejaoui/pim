@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class RiskGaugeWidget extends StatelessWidget {
   const RiskGaugeWidget({
@@ -47,7 +47,7 @@ class RiskGaugeWidget extends StatelessWidget {
                         style:
                             textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.w700,
-                              color: MedicalTheme.textPrimary,
+                              color: AppTheme.textPrimary,
                             ) ??
                             const TextStyle(
                               fontSize: 28,
@@ -59,7 +59,7 @@ class RiskGaugeWidget extends StatelessWidget {
                         label,
                         style:
                             textTheme.bodySmall?.copyWith(
-                              color: MedicalTheme.textSecondary,
+                              color: AppTheme.textSecondary,
                             ) ??
                             const TextStyle(fontSize: 12),
                       ),
@@ -89,17 +89,13 @@ class _RiskGaugePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 14
       ..strokeCap = StrokeCap.round
-      ..color = MedicalTheme.cardBorder.withOpacity(0.35);
+      ..color = AppTheme.cardBorder.withOpacity(0.35);
 
     canvas.drawCircle(center, radius, basePaint);
 
     final rect = Rect.fromCircle(center: center, radius: radius);
     final gradient = SweepGradient(
-      colors: const [
-        MedicalTheme.success,
-        MedicalTheme.warning,
-        MedicalTheme.danger,
-      ],
+      colors: const [AppTheme.success, AppTheme.warning, AppTheme.danger],
       stops: const [0.0, 0.6, 1.0],
       startAngle: -math.pi / 2,
       endAngle: 3 * math.pi / 2,

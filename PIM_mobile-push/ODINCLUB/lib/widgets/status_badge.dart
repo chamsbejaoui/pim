@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class StatusBadge extends StatelessWidget {
   const StatusBadge({super.key, required this.status});
@@ -35,12 +35,12 @@ class StatusBadge extends StatelessWidget {
   Color _statusColor(String status) {
     switch (status) {
       case 'INJURED':
-        return MedicalTheme.danger;
+        return AppTheme.danger;
       case 'WARNING':
-        return MedicalTheme.warning;
+        return AppTheme.warning;
       case 'SAFE':
       default:
-        return MedicalTheme.success;
+        return AppTheme.success;
     }
   }
 }

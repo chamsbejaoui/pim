@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class ConfidenceCard extends StatelessWidget {
   const ConfidenceCard({super.key, required this.confidence});
@@ -15,12 +15,12 @@ class ConfidenceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: MedicalTheme.card,
+        color: AppTheme.card,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: MedicalTheme.cardBorder),
+        border: Border.all(color: AppTheme.cardBorder),
         boxShadow: [
           BoxShadow(
-            color: MedicalTheme.accentBlue.withOpacity(0.2),
+            color: AppTheme.accentBlue.withOpacity(0.25),
             blurRadius: 16,
             spreadRadius: 1,
           ),
@@ -29,11 +29,7 @@ class ConfidenceCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.psychology_rounded,
-            color: MedicalTheme.accentBlue,
-            size: 20,
-          ),
+          Icon(Icons.psychology_rounded, color: AppTheme.accentBlue, size: 20),
           const SizedBox(width: 8),
           Text(
             'AI Confidence: ${value.toStringAsFixed(0)}%',

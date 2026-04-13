@@ -37,7 +37,7 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
   Timer? _phaseTimer;
   int _timeLeft = 0;
   DateTime? _reconstructStartTime;
-
+  
   double _fieldWidth = 0;
   double _fieldHeight = 0;
 
@@ -50,7 +50,7 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
   void _generateLevelConfig() {
     _pawns.clear();
     final random = Random();
-
+    
     int numAllies = 0;
     int numEnemies = 0;
     bool hasBall = false;
@@ -115,9 +115,9 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
   void _startReconstruct() {
     // Reset positions for the player to drag
     for (var pawn in _pawns) {
-      pawn.currentPosition = null;
+      pawn.currentPosition = null; 
     }
-
+    
     setState(() {
       _phase = TacticalPhase.Reconstruct;
       _reconstructStartTime = DateTime.now();
@@ -141,12 +141,12 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
       // Calculate normalized euclidean distance (0.0 to 1.0 logic translated to pixels)
       final targetX = pawn.targetPosition.dx * _fieldWidth;
       final targetY = pawn.targetPosition.dy * _fieldHeight;
-
+      
       final currentX = pawn.currentPosition!.dx;
       final currentY = pawn.currentPosition!.dy;
 
       final distance = sqrt(pow(targetX - currentX, 2) + pow(targetY - currentY, 2));
-
+      
       if (pawn.type == PawnType.Ball) {
         ballError = distance;
       } else {
@@ -199,32 +199,32 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-              "PHASE TACTIQUE",
-              style: TextStyle(color: Color(0xFF64748B), fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 2, decoration: TextDecoration.none)
+            "PHASE TACTIQUE", 
+            style: TextStyle(color: Color(0xFF64748B), fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 2, decoration: TextDecoration.none)
           ),
           if (_phase == TacticalPhase.Scan)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               decoration: BoxDecoration(
-                  color: _timeLeft <= 2 ? const Color(0xFFEF4444).withOpacity(0.1) : const Color(0xFF10B981).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: _timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981), width: 1.5),
-                  boxShadow: [
-                    BoxShadow(color: (_timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981)).withOpacity(0.2), blurRadius: 10)
-                  ]
+                color: _timeLeft <= 2 ? const Color(0xFFEF4444).withOpacity(0.1) : const Color(0xFF10B981).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: _timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981), width: 1.5),
+                boxShadow: [
+                   BoxShadow(color: (_timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981)).withOpacity(0.2), blurRadius: 10)
+                ]
               ),
               child: Row(
                 children: [
                   Icon(Icons.timer_outlined, color: _timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981), size: 16),
                   const SizedBox(width: 8),
                   Text(
-                      "00:0$_timeLeft",
-                      style: TextStyle(
-                          color: _timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18,
-                          decoration: TextDecoration.none
-                      )
+                    "00:0$_timeLeft", 
+                    style: TextStyle(
+                      color: _timeLeft <= 2 ? const Color(0xFFEF4444) : const Color(0xFF10B981), 
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18,
+                      decoration: TextDecoration.none
+                    )
                   ),
                 ],
               ),
@@ -245,7 +245,7 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
           const SizedBox(height: 4),
           const Text("Intelligence tactique · Vision de jeu", style: TextStyle(color: Color(0xFF64748B), fontSize: 13, fontWeight: FontWeight.bold)),
           const SizedBox(height: 24),
-
+          
           // Player Mock Header
           Container(
             padding: const EdgeInsets.all(16),
@@ -287,10 +287,10 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
             ),
           ),
           const SizedBox(height: 32),
-
+          
           Text("Sélectionnez un niveau", style: TextStyle(color: Colors.white.withOpacity(0.5), fontWeight: FontWeight.bold, fontSize: 14)),
           const SizedBox(height: 16),
-
+          
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -303,7 +303,7 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
               ),
             ),
           ),
-
+          
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => _startScan(),
@@ -323,7 +323,7 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
 
   Widget _buildLevelSelector(String title, String subtitle, int level, Color dotColor, bool isEnabled) {
     final isSelected = _level == level;
-
+    
     return GestureDetector(
       onTap: isEnabled ? () => setState(() => _level = level) : null,
       child: Container(
@@ -345,19 +345,19 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title, 
                     style: TextStyle(
-                        color: isEnabled ? Colors.white : Colors.white24,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16
+                      color: isEnabled ? Colors.white : Colors.white24, 
+                      fontWeight: FontWeight.bold, 
+                      fontSize: 16
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    subtitle,
+                    subtitle, 
                     style: TextStyle(
-                        color: isEnabled ? Colors.white54 : Colors.white24,
-                        fontSize: 12
+                      color: isEnabled ? Colors.white54 : Colors.white24, 
+                      fontSize: 12
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -400,92 +400,92 @@ class _TacticalMemoryScreenState extends State<TacticalMemoryScreen> with Single
                 painter: PitchPainter(),
                 child: Stack(
                   children: [
-
-                    if (_phase == TacticalPhase.Hide)
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFF0F172A).withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(color: const Color(0xFF10B981))
-                          ),
-                          child: const Text("RECONSTRUISEZ LA PHASE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: 2, decoration: TextDecoration.none)),
-                        ),
+                
+                if (_phase == TacticalPhase.Hide)
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0F172A).withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFF10B981))
                       ),
+                      child: const Text("RECONSTRUISEZ LA PHASE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: 2, decoration: TextDecoration.none)),
+                    ),
+                  ),
 
-                    // Drug Target for Reconstruct Phase
-                    if (_phase == TacticalPhase.Reconstruct)
-                      Positioned.fill(
-                        child: DragTarget<TacticalPawn>(
-                          onAcceptWithDetails: (details) {
-                            // Convert global drop position to local field coordinates
-                            final RenderBox renderBox = context.findRenderObject() as RenderBox;
+                // Drug Target for Reconstruct Phase
+                if (_phase == TacticalPhase.Reconstruct)
+                  Positioned.fill(
+                    child: DragTarget<TacticalPawn>(
+                      onAcceptWithDetails: (details) {
+                        // Convert global drop position to local field coordinates
+                        final RenderBox renderBox = context.findRenderObject() as RenderBox;
+                        
+                        // details.offset gives the top-left of the drag feedback
+                        // Offset by half of dragged size (44x44) to get exact center position mapping
+                        final globalCenter = details.offset + const Offset(22, 22);
+                        final localCenter = renderBox.globalToLocal(globalCenter);
+                        
+                        // localCenter is exactly relative to the Stack field container. No margin subtraction needed.
+                        final x = localCenter.dx.clamp(0.0, _fieldWidth);
+                        final y = localCenter.dy.clamp(0.0, _fieldHeight);
+                        
+                        setState(() {
+                          details.data.currentPosition = Offset(x, y);
+                        });
+                      },
+                      builder: (context, candidateData, rejectedData) => Container(color: Colors.transparent),
+                    ),
+                  ),
 
-                            // details.offset gives the top-left of the drag feedback
-                            // Offset by half of dragged size (44x44) to get exact center position mapping
-                            final globalCenter = details.offset + const Offset(22, 22);
-                            final localCenter = renderBox.globalToLocal(globalCenter);
-
-                            // localCenter is exactly relative to the Stack field container. No margin subtraction needed.
-                            final x = localCenter.dx.clamp(0.0, _fieldWidth);
-                            final y = localCenter.dy.clamp(0.0, _fieldHeight);
-
-                            setState(() {
-                              details.data.currentPosition = Offset(x, y);
-                            });
-                          },
-                          builder: (context, candidateData, rejectedData) => Container(color: Colors.transparent),
-                        ),
+                // Draw Pawns
+                ..._pawns.map((pawn) {
+                  const double r = 17.0; // Pawn radius offset
+                  
+                  if (_phase == TacticalPhase.Scan) {
+                    return Positioned(
+                      left: pawn.targetPosition.dx * _fieldWidth - r,
+                      top: pawn.targetPosition.dy * _fieldHeight - r,
+                      child: _buildPawnGraphic(pawn, isGhost: false),
+                    );
+                  } else if (_phase == TacticalPhase.Reconstruct && pawn.currentPosition != null) {
+                    return Positioned(
+                      left: pawn.currentPosition!.dx - r,
+                      top: pawn.currentPosition!.dy - r,
+                      child: Draggable<TacticalPawn>(
+                        data: pawn,
+                        feedback: _buildPawnGraphic(pawn, isGhost: false, isDragging: true),
+                        childWhenDragging: const SizedBox.shrink(),
+                        child: _buildPawnGraphic(pawn, isGhost: false),
                       ),
-
-                    // Draw Pawns
-                    ..._pawns.map((pawn) {
-                      const double r = 17.0; // Pawn radius offset
-
-                      if (_phase == TacticalPhase.Scan) {
-                        return Positioned(
+                    );
+                  } else if (_phase == TacticalPhase.Result) {
+                    return Stack(
+                      children: [
+                        // Ghost
+                        Positioned(
                           left: pawn.targetPosition.dx * _fieldWidth - r,
                           top: pawn.targetPosition.dy * _fieldHeight - r,
-                          child: _buildPawnGraphic(pawn, isGhost: false),
-                        );
-                      } else if (_phase == TacticalPhase.Reconstruct && pawn.currentPosition != null) {
-                        return Positioned(
-                          left: pawn.currentPosition!.dx - r,
-                          top: pawn.currentPosition!.dy - r,
-                          child: Draggable<TacticalPawn>(
-                            data: pawn,
-                            feedback: _buildPawnGraphic(pawn, isGhost: false, isDragging: true),
-                            childWhenDragging: const SizedBox.shrink(),
+                          child: _buildPawnGraphic(pawn, isGhost: true),
+                        ),
+                        // Current
+                        if (pawn.currentPosition != null)
+                          Positioned(
+                            left: pawn.currentPosition!.dx - r,
+                            top: pawn.currentPosition!.dy - r,
                             child: _buildPawnGraphic(pawn, isGhost: false),
                           ),
-                        );
-                      } else if (_phase == TacticalPhase.Result) {
-                        return Stack(
-                          children: [
-                            // Ghost
-                            Positioned(
-                              left: pawn.targetPosition.dx * _fieldWidth - r,
-                              top: pawn.targetPosition.dy * _fieldHeight - r,
-                              child: _buildPawnGraphic(pawn, isGhost: true),
-                            ),
-                            // Current
-                            if (pawn.currentPosition != null)
-                              Positioned(
-                                left: pawn.currentPosition!.dx - r,
-                                top: pawn.currentPosition!.dy - r,
-                                child: _buildPawnGraphic(pawn, isGhost: false),
-                              ),
-                          ],
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    }),
-                  ],
-                ),
-              ),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
+              ],
             ),
+           ),
           ),
+         ),
         );
       },
     );

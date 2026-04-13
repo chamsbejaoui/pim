@@ -7,9 +7,10 @@ import '../../models/player_model.dart';
 import 'injury_heatmap_screen.dart';
 import '../../services/medical_service.dart';
 import '../../services/player_service.dart';
+import '../../theme/app_theme.dart';
 import '../../ui/components/app_section_header.dart';
+import '../../ui/theme/app_colors.dart';
 import '../../ui/theme/app_spacing.dart';
-import '../../ui/theme/medical_theme.dart';
 import '../../widgets/bullet_list_card.dart';
 import '../../widgets/confidence_card.dart';
 import '../../widgets/nutrition_card.dart';
@@ -112,61 +113,58 @@ class _MedicalAnalysisScreenState extends State<MedicalAnalysisScreen>
   Widget build(BuildContext context) {
     final player = _player;
 
-    return MedicalThemeScope(
-      applyBackground: false,
-      child: Container(
-        decoration: BoxDecoration(gradient: AppTheme.appGradient),
-        child: Stack(
-          children: [
-            DefaultTextStyle.merge(
-              style: TextStyle(
-                color: AppTheme.textPrimary,
-                decoration: TextDecoration.none,
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppSpacing.s16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppSectionHeader(
-                      title: 'Medical Analysis',
-                      subtitle: player.name,
-                      action: IconButton(
-                        tooltip: 'Back',
-                        onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const Icon(Icons.arrow_back_rounded),
-                      ),
+    return Container(
+      decoration: BoxDecoration(gradient: AppTheme.appGradient),
+      child: Stack(
+        children: [
+          DefaultTextStyle.merge(
+            style: TextStyle(
+              color: AppTheme.textPrimary,
+              decoration: TextDecoration.none,
+            ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppSpacing.s16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSectionHeader(
+                    title: 'Medical Analysis',
+                    subtitle: player.name,
+                    action: IconButton(
+                      tooltip: 'Back',
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      icon: const Icon(Icons.arrow_back_rounded),
                     ),
-                    const SizedBox(height: AppSpacing.s16),
-                    _PlayerHeader(player: player),
-                    const SizedBox(height: AppSpacing.s16),
-                    _ActionCard(isLoading: _isLoading, onRun: _runAnalysis),
-                    if (_errorMessage != null && _errorMessage!.isNotEmpty) ...[
-                      const SizedBox(height: AppSpacing.s12),
-                      _InlineError(message: _errorMessage!),
-                    ],
-                    const SizedBox(height: AppSpacing.s16),
-                    AnimatedOpacity(
-                      opacity: _result == null ? 0 : 1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeOut,
-                      child: _result == null
-                          ? const SizedBox.shrink()
-                          : _ResultBody(result: _result!, player: player),
-                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.s16),
+                  _PlayerHeader(player: player),
+                  const SizedBox(height: AppSpacing.s16),
+                  _ActionCard(isLoading: _isLoading, onRun: _runAnalysis),
+                  if (_errorMessage != null && _errorMessage!.isNotEmpty) ...[
+                    const SizedBox(height: AppSpacing.s12),
+                    _InlineError(message: _errorMessage!),
                   ],
-                ),
+                  const SizedBox(height: AppSpacing.s16),
+                  AnimatedOpacity(
+                    opacity: _result == null ? 0 : 1,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOut,
+                    child: _result == null
+                        ? const SizedBox.shrink()
+                        : _ResultBody(result: _result!, player: player),
+                  ),
+                ],
               ),
             ),
-            if (_isLoading)
-              Positioned.fill(
-                child: Container(
-                  color: AppTheme.background.withValues(alpha: 0.88),
-                  child: const Center(child: _LoadingOverlay()),
-                ),
+          ),
+          if (_isLoading)
+            Positioned.fill(
+              child: Container(
+                color: AppTheme.background.withValues(alpha: 0.88),
+                child: const Center(child: _LoadingOverlay()),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -367,7 +365,7 @@ class _ActionCard extends StatelessWidget {
           onPressed: isLoading ? null : onRun,
           style: ElevatedButton.styleFrom(
             backgroundColor: AppTheme.primaryBlue,
-            foregroundColor: MedicalTheme.surface,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -379,7 +377,7 @@ class _ActionCard extends StatelessWidget {
                   width: 18,
                   child: CircularProgressIndicator(
                     strokeWidth: 2.2,
-                    color: MedicalTheme.surface,
+                    color: AppColors.white,
                   ),
                 )
               : Text('Run', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -534,7 +532,7 @@ class _ResultBody extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppTheme.primaryBlue,
-              foregroundColor: MedicalTheme.surface,
+              foregroundColor: AppColors.white,
               padding: const EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -961,7 +959,7 @@ class _RiskLegend extends StatelessWidget {
         Wrap(
           spacing: 12,
           runSpacing: 8,
-          children: [
+          children: const [
             _LegendItem(color: AppTheme.success, label: 'Low Risk (0-30%)'),
             _LegendItem(color: AppTheme.warning, label: 'Medium Risk (30-60%)'),
             _LegendItem(color: AppTheme.danger, label: 'High Risk (60-100%)'),

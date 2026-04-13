@@ -5,8 +5,6 @@ import '../../providers/players_provider.dart';
 import '../../theme/sp_colors.dart';
 import '../../theme/sp_typography.dart';
 import 'create_player_screen.dart';
-import '../../cognitive_lab/screens/cognitive_dashboard_screen.dart';
-import '../../../ui/shell/app_shell.dart';
 
 class PlayersListScreen extends ConsumerStatefulWidget {
   const PlayersListScreen({super.key});
@@ -132,21 +130,6 @@ class _PlayersListScreenState extends ConsumerState<PlayersListScreen> {
         border: Border.all(color: SPColors.borderPrimary.withOpacity(0.3)),
       ),
       child: ListTile(
-        onTap: () {
-          final shell = AppShellScope.of(context);
-          if (shell != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CognitiveDashboardScreen(
-                  session: shell.session,
-                  targetPlayerId: player.id,
-                  targetPlayerName: player.fullName,
-                ),
-              ),
-            );
-          }
-        },
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Hero(
           tag: 'player_${player.id}',
@@ -185,24 +168,6 @@ class _PlayersListScreenState extends ConsumerState<PlayersListScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              icon: const Icon(Icons.psychology, color: Colors.cyanAccent, size: 22),
-              onPressed: () {
-                final shell = AppShellScope.of(context);
-                if (shell != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CognitiveDashboardScreen(
-                        session: shell.session,
-                        targetPlayerId: player.id,
-                        targetPlayerName: player.fullName,
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
-            IconButton(
               icon: const Icon(Icons.edit_outlined, color: SPColors.textTertiary, size: 20),
               onPressed: () {
                 Navigator.push(
@@ -210,6 +175,10 @@ class _PlayersListScreenState extends ConsumerState<PlayersListScreen> {
                   MaterialPageRoute(builder: (context) => CreatePlayerScreen(playerToEdit: player)),
                 );
               },
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete_outline, color: SPColors.error, size: 20),
+              onPressed: () => _showDeleteConfirmation(player),
             ),
           ],
         ),

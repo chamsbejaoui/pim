@@ -15,22 +15,22 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
   final int totalRounds = 15;
   int currentRound = 0;
   List<int> reactionTimes = [];
-
+  
   bool isWaiting = true;
   bool isGoTarget = true;
   double topPos = 0.5;
   double leftPos = 0.5;
   DateTime? showTime;
-
+  
   int correctGo = 0;
   int missedGo = 0;
   int commissionErrors = 0; // Tapping on Red (No-Go)
   int correctRejections = 0; // Not tapping on Red (No-Go)
-
+  
   // Adaptive Difficulty State
   double currentSpawnWindow = 1200.0; // Starting window in MS
   int consecutiveSuccesses = 0;
-
+  
   Timer? delayTimer;
   Timer? noGoTimer;
   final Random random = Random();
@@ -44,12 +44,12 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
-
+    
     _shakeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-
+    
     _startNextRound();
   }
 
@@ -68,12 +68,12 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
       isWaiting = true;
       noGoTimer?.cancel();
     });
-
+    
     // Random delay between 800ms and 2.4s
     final delay = Duration(milliseconds: 800 + random.nextInt(1600));
     delayTimer = Timer(delay, () {
       if (!mounted) return;
-
+      
       setState(() {
         // 75% Go targets, 25% No-Go targets
         isGoTarget = random.nextDouble() < 0.75;
@@ -86,7 +86,7 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
       // For both Go and No-Go, we have a window to react
       noGoTimer = Timer(Duration(milliseconds: currentSpawnWindow.toInt()), () {
         if (!mounted || isWaiting) return;
-
+        
         if (isGoTarget) {
           _handleMissedGo();
         } else {
@@ -98,7 +98,7 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
 
   void _onTargetTap() {
     if (isWaiting || showTime == null) return;
-
+    
     final elapsed = DateTime.now().difference(showTime!).inMilliseconds;
 
     if (isGoTarget) {
@@ -153,21 +153,21 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
   void _finishTest() {
     if (reactionTimes.isEmpty && correctGo == 0) {
       widget.onComplete({
-        'avgMs': 1000,
-        'bestMs': 1000,
-        'worstMs': 1000,
+        'avgMs': 1000, 
+        'bestMs': 1000, 
+        'worstMs': 1000, 
         'accuracy': 0,
         'commissionErrors': commissionErrors,
       });
       return;
     }
-
-    int avgMs = reactionTimes.isNotEmpty
+    
+    int avgMs = reactionTimes.isNotEmpty 
         ? (reactionTimes.reduce((a, b) => a + b) / reactionTimes.length).round()
         : 800;
     int bestMs = reactionTimes.isNotEmpty ? reactionTimes.reduce(min) : 800;
     int worstMs = reactionTimes.isNotEmpty ? reactionTimes.reduce(max) : 1200;
-
+    
     // Professional accuracy: (Succeeded trials / Total trials)
     int accuracy = (((correctGo + correctRejections) / totalRounds) * 100).round();
 
@@ -194,7 +194,7 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
           // Calculate shake offset - removed isWaiting check to allow shake to finish
           // and increased amplitude for higher impact
           double offset = (sin(_shakeController.value * pi * 10) * 12);
-
+          
           return Transform.translate(
             offset: Offset(offset, 0),
             child: child,
@@ -222,7 +222,7 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
                   ),
                 ),
                 const SizedBox(height: 30),
-
+                
                 if (isWaiting)
                   Expanded(
                     child: Center(
@@ -261,7 +261,7 @@ class _ReactionTestScreenState extends State<ReactionTestScreen> with TickerProv
                         ),
                       ),
                     ),
-                  )
+                   )
                 else
                   const Spacer(),
               ],

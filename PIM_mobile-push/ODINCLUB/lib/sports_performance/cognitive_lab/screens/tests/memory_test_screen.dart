@@ -15,14 +15,14 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
   List<int> sequence = [];
   List<int> userSequence = [];
   bool isShowingSequence = false;
-
+  
   int currentLevel = 3;
   int correctSequences = 0;
   int failures = 0;
-
+  
   int currentlyLit = -1;
   int distractorLit = -1;
-
+  
   final Random random = Random();
   Timer? _distractorTimer;
 
@@ -45,12 +45,12 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
       userSequence = [];
       distractorLit = -1;
     });
-
+    
     sequence = List.generate(currentLevel, (_) => random.nextInt(9));
-
+    
     await Future.delayed(const Duration(seconds: 1));
     _startDistractors();
-
+    
     for (int tile in sequence) {
       if (!mounted) return;
       setState(() => currentlyLit = tile);
@@ -59,7 +59,7 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
       setState(() => currentlyLit = -1);
       await Future.delayed(const Duration(milliseconds: 250));
     }
-
+    
     _distractorTimer?.cancel();
     if (!mounted) return;
     setState(() {
@@ -89,12 +89,12 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
 
   void _onTileTap(int index) {
     if (isShowingSequence) return;
-
+    
     setState(() {
       userSequence.add(index);
       currentlyLit = index;
     });
-
+    
     Future.delayed(const Duration(milliseconds: 150), () {
       if (mounted) setState(() => currentlyLit = -1);
     });
@@ -109,7 +109,7 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
       }
       return;
     }
-
+    
     if (userSequence.length == sequence.length) {
       correctSequences++;
       currentLevel++;
@@ -154,7 +154,7 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
             ),
           ),
           const SizedBox(height: 24),
-
+          
           // Glass Instruction Card
           Container(
             width: double.infinity,
@@ -192,8 +192,8 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
                 Text(
                   isShowingSequence ? 'WATCH TARGETS' : 'YOUR TURN',
                   style: TextStyle(
-                    color: isShowingSequence ? Colors.orangeAccent : Colors.cyanAccent,
-                    fontSize: 18,
+                    color: isShowingSequence ? Colors.orangeAccent : Colors.cyanAccent, 
+                    fontSize: 18, 
                     fontWeight: FontWeight.w900,
                     letterSpacing: 4,
                   ),
@@ -206,9 +206,9 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
               ],
             ),
           ),
-
+          
           const Spacer(),
-
+          
           // Grid with Premium "Glass Pad" Tiles
           AspectRatio(
             aspectRatio: 1,
@@ -223,7 +223,7 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
               itemBuilder: (context, index) {
                 final isLit = currentlyLit == index;
                 final isDistractor = distractorLit == index;
-
+                
                 return GestureDetector(
                   onTap: () => _onTileTap(index),
                   child: AnimatedContainer(
@@ -233,11 +233,11 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          isLit
-                              ? Colors.cyanAccent
+                          isLit 
+                              ? Colors.cyanAccent 
                               : (isDistractor ? Colors.purpleAccent.withOpacity(0.8) : Colors.white.withOpacity(0.06)),
-                          isLit
-                              ? Colors.blueAccent
+                          isLit 
+                              ? Colors.blueAccent 
                               : (isDistractor ? Colors.purple.withOpacity(0.4) : Colors.white.withOpacity(0.02)),
                         ],
                       ),
@@ -264,9 +264,9 @@ class _MemoryTestScreenState extends State<MemoryTestScreen> {
               },
             ),
           ),
-
+          
           const Spacer(),
-
+          
           const Text(
             "SPATIAL MEMORY UNDER INTERFERENCE\nProfessional elite cognitive requirement",
             textAlign: TextAlign.center,

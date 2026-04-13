@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/alert_model.dart';
 import '../services/alert_service.dart';
-import '../ui/theme/medical_theme.dart';
+import '../theme/app_theme.dart';
 
 class AlertOverlay extends StatefulWidget {
   AlertOverlay({super.key, AlertService? service})
@@ -130,7 +130,7 @@ class _AlertCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: MedicalTheme.card,
+          color: AppTheme.card,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: color.withOpacity(0.35)),
           boxShadow: [
@@ -168,7 +168,7 @@ class _AlertCard extends StatelessWidget {
                   Text(
                     _statLine(alert),
                     style: textTheme.bodySmall?.copyWith(
-                      color: MedicalTheme.textSecondary,
+                      color: AppTheme.textSecondary,
                     ),
                   ),
                   if (alert.reasons.isNotEmpty) ...[
@@ -176,7 +176,7 @@ class _AlertCard extends StatelessWidget {
                     Text(
                       alert.reasons.join(' • '),
                       style: textTheme.bodySmall?.copyWith(
-                        color: MedicalTheme.textSecondary,
+                        color: AppTheme.textSecondary,
                       ),
                     ),
                   ],
@@ -218,11 +218,11 @@ class _AlertCard extends StatelessWidget {
   Color _accentColor(AlertStatus status) {
     switch (status) {
       case AlertStatus.injured:
-        return MedicalTheme.danger;
+        return AppTheme.danger;
       case AlertStatus.warning:
-        return MedicalTheme.warning;
+        return AppTheme.warning;
       case AlertStatus.safe:
-        return MedicalTheme.success;
+        return AppTheme.success;
     }
   }
 }
